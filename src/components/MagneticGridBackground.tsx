@@ -13,11 +13,6 @@ export const MagneticGridBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    // Disable on touch devices or reduced-motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    if (prefersReducedMotion || isTouch) return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -33,7 +28,7 @@ export const MagneticGridBackground: React.FC = () => {
     let targetMouseX = -9999;
     let targetMouseY = -9999;
 
-    const spacing = 44; // Grid cell spacing in px for crisp cyber mesh
+    const spacing = 48; // Grid cell spacing in px
     let points: Point[][] = [];
     let cols = 0;
     let rows = 0;
@@ -83,13 +78,13 @@ export const MagneticGridBackground: React.FC = () => {
     document.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
 
-    const repulsionRadius = 180; // Influence radius around cursor
-    const repulsionStrength = 60; // Maximum magnetic displacement in px
-    const spring = 0.09; // Spring stiffness
+    const repulsionRadius = 170; // Influence radius around cursor
+    const repulsionStrength = 60; // Maximum displacement in px
+    const spring = 0.085; // Spring return stiffness
     const friction = 0.82; // Damping
 
     const render = () => {
-      // Smoothly interpolate mouse coordinates for fluid trailing response
+      // Smoothly interpolate mouse coordinates
       mouseX += (targetMouseX - mouseX) * 0.2;
       mouseY += (targetMouseY - mouseY) * 0.2;
 
@@ -97,22 +92,16 @@ export const MagneticGridBackground: React.FC = () => {
 
       ctx.clearRect(0, 0, width, height);
 
-      // High-visibility base grid lines
+      // Colors adapted for dark vs light mode with crisp visibility
       const baseLineColor = isDark
-        ? 'rgba(255, 255, 255, 0.08)' // Clear, crisp cyber grid in dark mode
-        : 'rgba(15, 23, 42, 0.09)'; // Clear, high-contrast blueprint grid in light mode
-
-      const activeGlowLineColor = isDark
-        ? 'rgba(204, 255, 0, 0.55)'
-        : 'rgba(4, 120, 87, 0.45)';
-
-      const nodeBaseColor = isDark
-        ? 'rgba(255, 255, 255, 0.14)'
-        : 'rgba(15, 23, 42, 0.15)';
-
-      const nodeActiveColor = isDark
-        ? 'rgba(204, 255, 0, 0.95)'
-        : 'rgba(4, 120, 87, 0.95)';
+        ? 'rgba(255, 255, 255, 0.06)'
+        : 'rgba(0, 0, 0, 0.07)';
+      const activeLineColor = isDark
+        ? 'rgba(226, 249, 82, 0.35)'
+        : 'rgba(4, 120, 87, 0.35)';
+      const nodeColor = isDark
+        ? 'rgba(226, 249, 82, 0.8)'
+        : 'rgba(4, 120, 87, 0.8)';
 
       // 1. Update point physics (Magnetic Repulsion)
       for (let r = 0; r < rows; r++) {
@@ -122,7 +111,7 @@ export const MagneticGridBackground: React.FC = () => {
           // Compute distance to mouse
           const dx = p.x - mouseX;
           const dy = p.y - mouseY;
-          const dist = Math.hypot(dx, dy);
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
           let targetX = p.originX;
           let targetY = p.originY;
@@ -159,6 +148,7 @@ export const MagneticGridBackground: React.FC = () => {
             ctx.moveTo(p.x, p.y);
           } else {
             const prev = points[r][c - 1];
+            // Smooth midpoint bezier for organic curve
             const midX = (prev.x + p.x) / 2;
             const midY = (prev.y + p.y) / 2;
             ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
@@ -186,106 +176,39 @@ export const MagneticGridBackground: React.FC = () => {
         ctx.stroke();
       }
 
-      // 4. Highlight active distorted grid lines near cursor
+      // 4. Draw magnetic node dots near cursor with glowing highlight
       if (mouseX > -100 && mouseX < width + 100 && mouseY > -100 && mouseY < height + 100) {
-        ctx.lineWidth = 1.6;
-        ctx.strokeStyle = activeGlowLineColor;
-
-        // Active horizontal segments
         for (let r = 0; r < rows; r++) {
-          for (let c = 1; c < cols; c++) {
+          for (let c = 0; c < cols; c++) {
             const p = points[r][c];
-            const prev = points[r][c - 1];
-            const dist = Math.min(
-              Math.hypot(p.x - mouseX, p.y - mouseY),
-              Math.hypot(prev.x - mouseX, prev.y - mouseY)
-            );
-            if (dist < repulsionRadius * 0.9) {
+            const dist = Math.hypot(p.x - mouseX, p.y - mouseY);
+            if (dist < repulsionRadius) {
+              const alpha = 1 - dist / repulsionRadius;
               ctx.beginPath();
-              ctx.moveTo(prev.x, prev.y);
-              const midX = (prev.x + p.x) / 2;
-              const midY = (prev.y + p.y) / 2;
-              ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
-              ctx.stroke();
+              ctx.arc(p.x, p.y, 1.8 * alpha + 0.6, 0, Math.PI * 2);
+              ctx.fillStyle = nodeColor;
+              ctx.globalAlpha = alpha;
+              ctx.fill();
+              ctx.globalAlpha = 1.0;
             }
           }
         }
 
-        // Active vertical segments
-        for (let c = 0; c < cols; c++) {
-          for (let r = 1; r < rows; r++) {
-            const p = points[r][c];
-            const prev = points[r - 1][c];
-            const dist = Math.min(
-              Math.hypot(p.x - mouseX, p.y - mouseY),
-              Math.hypot(prev.x - mouseX, prev.y - mouseY)
-            );
-            if (dist < repulsionRadius * 0.9) {
-              ctx.beginPath();
-              ctx.moveTo(prev.x, prev.y);
-              const midX = (prev.x + p.x) / 2;
-              const midY = (prev.y + p.y) / 2;
-              ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
-              ctx.stroke();
-            }
-          }
-        }
-
-        // Multi-stop magnetic field aura around cursor
-        const auraGradient = ctx.createRadialGradient(
+        // Draw subtle magnetic field halo around cursor
+        const gradient = ctx.createRadialGradient(
           mouseX,
           mouseY,
-          5,
+          10,
           mouseX,
           mouseY,
           repulsionRadius
         );
-        if (isDark) {
-          auraGradient.addColorStop(0, 'rgba(204, 255, 0, 0.15)');
-          auraGradient.addColorStop(0.4, 'rgba(0, 229, 255, 0.05)');
-          auraGradient.addColorStop(1, 'transparent');
-        } else {
-          auraGradient.addColorStop(0, 'rgba(4, 120, 87, 0.12)');
-          auraGradient.addColorStop(0.4, 'rgba(59, 130, 246, 0.04)');
-          auraGradient.addColorStop(1, 'transparent');
-        }
-
-        ctx.fillStyle = auraGradient;
+        gradient.addColorStop(0, activeLineColor);
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(mouseX, mouseY, repulsionRadius, 0, Math.PI * 2);
         ctx.fill();
-      }
-
-      // 5. Draw grid intersection node points
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const p = points[r][c];
-          const dist = Math.hypot(p.x - mouseX, p.y - mouseY);
-
-          if (dist < repulsionRadius) {
-            const alpha = 1 - dist / repulsionRadius;
-
-            // Outer node glow
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, 3 * alpha + 1.2, 0, Math.PI * 2);
-            ctx.fillStyle = isDark
-              ? `rgba(204, 255, 0, ${alpha * 0.3})`
-              : `rgba(4, 120, 87, ${alpha * 0.25})`;
-            ctx.fill();
-
-            // Active node core
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, 1.4 * alpha + 0.8, 0, Math.PI * 2);
-            ctx.fillStyle = nodeActiveColor;
-            ctx.fill();
-          } else {
-            // Subtle resting micro-node at intersection
-            ctx.beginPath();
-            ctx.arc(p.originX, p.originY, 0.8, 0, Math.PI * 2);
-            ctx.fillStyle = nodeBaseColor;
-            ctx.fill();
-          }
-        }
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -305,7 +228,7 @@ export const MagneticGridBackground: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none z-[1]"
+      className="fixed inset-0 pointer-events-none z-0"
     />
   );
 };
