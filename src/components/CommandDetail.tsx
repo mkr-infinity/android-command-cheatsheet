@@ -478,34 +478,44 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
         </div>
       </div>
 
-      {/* Trademark Direct Support Card */}
-      <div className="clay-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-l-4 border-l-cyber-lime">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-cyber-lime/10 text-cyber-lime border border-cyber-lime/30 shrink-0">
-            <TelegramIcon className="w-5 h-5 text-[#229ED9]" />
-          </div>
-          <div>
-            <div className="text-xs sm:text-sm font-mono font-bold text-neutral-950 dark:text-cyber-text">
-              Having issue? Contact <span className="text-cyber-lime">@mkr_infinity</span>
-            </div>
-            <p className="text-[11px] text-neutral-600 dark:text-neutral-400 font-sans mt-0.5">
-              Direct technical assistance, ROM flashing troubleshooting &amp; command inquiries.
-            </p>
-          </div>
-        </div>
+      {/* Trademark Direct Support Card with customized Telegram pre-filled message */}
+      {(() => {
+        const pageUrl = typeof window !== 'undefined' && window.location.href 
+          ? window.location.href 
+          : `https://mkr-infinity.github.io/android-command-cheatsheet/${command.tool}/${command.id}/`;
+        const telegramPrefilledText = `Hey Mohammad Kaif Raja! I came from your Android Command Cheatsheet website (${pageUrl}) regarding the command: ${command.command}. Could you assist me with this?`;
+        const telegramUrl = `https://t.me/mkr_infinity?text=${encodeURIComponent(telegramPrefilledText)}`;
 
-        <a
-          href="https://t.me/mkr_infinity"
-          target="_blank"
-          rel="noreferrer"
-          className="clay-button-primary px-4 py-2 text-xs font-mono font-bold inline-flex items-center gap-2 shrink-0 shadow-sm"
-          title="Contact @mkr_infinity on Telegram"
-        >
-          <TelegramIcon className="w-3.5 h-3.5 text-black shrink-0" />
-          <span>Contact @mkr_infinity</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
-      </div>
+        return (
+          <div className="clay-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-l-4 border-l-cyber-lime">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-cyber-lime/10 text-cyber-lime border border-cyber-lime/30 shrink-0">
+                <TelegramIcon className="w-5 h-5 text-[#229ED9]" />
+              </div>
+              <div>
+                <div className="text-xs sm:text-sm font-mono font-bold text-neutral-950 dark:text-cyber-text">
+                  Having issue? Contact <span className="text-cyber-lime">@mkr_infinity</span>
+                </div>
+                <p className="text-[11px] text-neutral-600 dark:text-neutral-400 font-sans mt-0.5">
+                  Direct technical assistance &amp; ROM flashing troubleshooting by Mohammad Kaif Raja.
+                </p>
+              </div>
+            </div>
+
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="clay-button-primary px-4 py-2 text-xs font-mono font-bold inline-flex items-center gap-2 shrink-0 shadow-sm"
+              title="Contact @mkr_infinity on Telegram with command details"
+            >
+              <TelegramIcon className="w-3.5 h-3.5 text-black shrink-0" />
+              <span>Contact @mkr_infinity</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        );
+      })()}
     </article>
   );
 };
