@@ -12,6 +12,9 @@ import {
   Info,
   Terminal,
   Zap,
+  ExternalLink,
+  Unlock,
+  Layers,
 } from 'lucide-react';
 import type { CommandItem } from '../data/types';
 import { CopyButton } from './CopyButton';
@@ -64,6 +67,23 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
   const relatedCommands = command.related
     .map((relId) => getCommandById(relId))
     .filter((cmd): cmd is CommandItem => Boolean(cmd));
+
+  const isUnlockRelated =
+    command.tool === 'fastboot' &&
+    (command.id.includes('unlock') ||
+      command.id.includes('lock') ||
+      command.category.toLowerCase().includes('unlock') ||
+      command.tags.some((t) => t.includes('unlock') || t.includes('bootloader')));
+
+  const isGsiOrFlashRelated =
+    command.tool === 'fastboot' &&
+    (command.id.includes('flash-system') ||
+      command.id.includes('flashall') ||
+      command.id.includes('flash-slot') ||
+      command.id.includes('reboot-fastboot') ||
+      command.category.toLowerCase().includes('flash') ||
+      command.category.toLowerCase().includes('partition') ||
+      command.tags.some((t) => t.includes('gsi') || t.includes('treble') || t.includes('system')));
 
   return (
     <article className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
@@ -256,6 +276,64 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
             </table>
           </div>
         </section>
+      )}
+
+      {/* Targeted Companion Guide Callout: Bootloader Unlocking */}
+      {isUnlockRelated && (
+        <div className="p-4 sm:p-5 rounded-2xl border border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="clay-pill text-[11px] font-mono text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30 font-bold">
+                <Unlock className="w-3 h-3 inline mr-1" />
+                OFFICIAL COMPANION GUIDE
+              </span>
+            </div>
+            <h4 className="font-mono text-sm sm:text-base font-bold text-neutral-900 dark:text-cyber-text">
+              Looking for OEM-Specific Unlock Instructions?
+            </h4>
+            <p className="text-xs text-neutral-600 dark:text-neutral-300 font-sans max-w-xl">
+              Bootloader unlocking often requires vendor-specific steps (Xiaomi Mi Unlock account binding, OnePlus tokens, Motorola keys). Check the step-by-step master guide by <strong>@mkr-infinity</strong>:
+            </p>
+          </div>
+          <a
+            href="https://github.com/mkr-infinity/Guide-to-unlock-Bootloader"
+            target="_blank"
+            rel="noreferrer"
+            className="clay-button shrink-0 inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-bold text-neutral-900 dark:text-cyber-text hover:text-amber-700 dark:hover:text-amber-400"
+          >
+            <span>Open Unlock Guide</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      )}
+
+      {/* Targeted Companion Guide Callout: GSI / System Flashing */}
+      {isGsiOrFlashRelated && (
+        <div className="p-4 sm:p-5 rounded-2xl border border-cyber-lime/40 bg-cyber-lime/5 dark:bg-cyber-lime/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="clay-pill text-[11px] font-mono text-cyber-lime bg-cyber-lime/10 border-cyber-lime/30 font-bold">
+                <Layers className="w-3 h-3 inline mr-1" />
+                OFFICIAL COMPANION GUIDE
+              </span>
+            </div>
+            <h4 className="font-mono text-sm sm:text-base font-bold text-neutral-900 dark:text-cyber-text">
+              Flashing Generic System Images (GSI) / Project Treble?
+            </h4>
+            <p className="text-xs text-neutral-600 dark:text-neutral-300 font-sans max-w-xl">
+              Learn how to enter fastbootd, erase and resize logical dynamic partitions, and disable dm-verity with the complete handbook by <strong>@mkr-infinity</strong>:
+            </p>
+          </div>
+          <a
+            href="https://github.com/mkr-infinity/Guide-for-flashing-GSI-to-any-device"
+            target="_blank"
+            rel="noreferrer"
+            className="clay-button shrink-0 inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-bold text-neutral-900 dark:text-cyber-text hover:text-cyber-lime"
+          >
+            <span>Open GSI Flashing Guide</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
       )}
 
       {/* Requirements */}

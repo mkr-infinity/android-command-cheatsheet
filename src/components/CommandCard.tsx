@@ -43,7 +43,7 @@ export const CommandCard: React.FC<CommandCardProps> = ({ command, basePath = ''
               {command.tool === 'adb' ? (
                 <Terminal className="w-3 h-3 text-cyber-lime inline mr-1" />
               ) : (
-                <Zap className="w-3 h-3 text-amber-500 inline mr-1" />
+                <Zap className="w-3 h-3 text-amber-700 dark:text-amber-400 inline mr-1" />
               )}
               {command.category}
             </span>

@@ -7,6 +7,12 @@ import {
   ExternalLink,
   ShieldCheck,
   Zap,
+  BookOpen,
+  Unlock,
+  Layers,
+  ArrowRight,
+  Terminal,
+  Cpu,
 } from 'lucide-react';
 import { GithubIcon, InstagramIcon, TelegramIcon, GlobeIcon, CoffeeIcon } from './icons/BrandIcons';
 
@@ -27,7 +33,7 @@ export const AboutProfile: React.FC = () => {
     login: 'mkr-infinity',
     name: 'Mohammad Kaif Raja',
     avatar_url: 'https://github.com/mkr-infinity.png',
-    bio: 'Software engineer and developer creating developer tools, system utilities, and open source documentation.',
+    bio: 'Software engineer and systems developer creating developer tools, custom Android firmware recovery guides, and open source technical documentation.',
     public_repos: 18,
     followers: 24,
     following: 12,
@@ -64,11 +70,11 @@ export const AboutProfile: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Claymorphic Developer Identity Card */}
       <div className="clay-card p-6 sm:p-8 relative overflow-hidden">
         {/* Subtle background ambient mesh */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyber-lime/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-cyber-lime/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10 text-center sm:text-left">
           {/* Avatar with Claymorphic ring & Status indicator */}
@@ -85,10 +91,10 @@ export const AboutProfile: React.FC = () => {
             </div>
             {/* Live Status indicator */}
             <span
-              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#111113] border-2 border-[#111113] flex items-center justify-center"
+              className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white dark:bg-[#111113] border-2 border-white dark:border-[#111113] flex items-center justify-center shadow-sm"
               title="Verified Maintainer"
             >
-              <span className="w-3 h-3 rounded-full bg-cyber-lime shadow-[0_0_8px_#E2F952]" />
+              <span className="w-3 h-3 rounded-full bg-cyber-lime shadow-[0_0_8px_rgb(var(--accent-lime-rgb))]" />
             </span>
           </div>
 
@@ -103,39 +109,44 @@ export const AboutProfile: React.FC = () => {
                   href={profile.html_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-xs sm:text-sm font-mono text-neutral-500 hover:text-neutral-900 dark:text-cyber-muted dark:hover:text-cyber-lime inline-flex items-center gap-1 mt-0.5"
+                  className="text-xs sm:text-sm font-mono text-neutral-600 hover:text-neutral-950 dark:text-cyber-muted dark:hover:text-cyber-lime inline-flex items-center gap-1.5 mt-0.5"
                 >
                   <span>@{profile.login}</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
 
               {/* Verified Pill */}
               <div className="self-center sm:self-auto">
-                <span className="clay-pill text-xs text-cyber-lime font-mono">
+                <span className="clay-pill text-xs text-cyber-lime font-mono font-bold">
                   <ShieldCheck className="w-3.5 h-3.5 text-cyber-lime" />
                   <span>PROJECT CREATOR</span>
                 </span>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-xl">
+            <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-xl font-sans">
               {profile.bio}
             </p>
 
             {/* GitHub Live Stats Counter Chips */}
-            <div className="flex items-center justify-center sm:justify-start gap-3 flex-wrap pt-2">
-              <div className="clay-pill text-xs font-mono text-neutral-700 dark:text-neutral-300">
+            <div className="flex items-center justify-center sm:justify-start gap-2.5 flex-wrap pt-2">
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
                 <GitBranch className="w-3.5 h-3.5 text-cyber-lime" />
                 <span><strong>{profile.public_repos}</strong> Repos</span>
               </div>
 
-              <div className="clay-pill text-xs font-mono text-neutral-700 dark:text-neutral-300">
-                <Users className="w-3.5 h-3.5 text-amber-500" />
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
+                <Users className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                 <span><strong>{profile.followers}</strong> Followers</span>
               </div>
 
-              <div className="clay-pill text-xs font-mono text-neutral-700 dark:text-neutral-300">
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
+                <Cpu className="w-3.5 h-3.5 text-cyber-lime" />
+                <span>Android Systems</span>
+              </div>
+
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
                 <Sparkles className="w-3.5 h-3.5 text-cyber-lime" />
                 <span>Open Source</span>
               </div>
@@ -144,10 +155,121 @@ export const AboutProfile: React.FC = () => {
         </div>
       </div>
 
+      {/* Official Companion Guides & Repositories Section */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+              <BookOpen className="w-4 h-4 text-cyber-lime" />
+              <span>Official Companion Guides &amp; Toolkits</span>
+            </div>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 font-sans">
+              Comprehensive step-by-step handbooks created to accompany this cheatsheet for complex modding workflows.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Guide 1: Bootloader Unlock Guide */}
+          <div className="clay-card p-5 sm:p-6 flex flex-col justify-between space-y-4 hover:translate-y-[-2px] transition-all">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="clay-pill text-[11px] font-mono text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30">
+                  <Unlock className="w-3 h-3 inline mr-1" />
+                  BOOTLOADER UNLOCK
+                </span>
+                <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500 font-semibold">
+                  Official Repository
+                </span>
+              </div>
+
+              <div>
+                <h4 className="text-base sm:text-lg font-mono font-bold text-neutral-950 dark:text-cyber-text leading-snug">
+                  Guide to Unlock Bootloader
+                </h4>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 mt-2 leading-relaxed font-sans">
+                  The definitive universal walkthrough for bootloader unlocking across Android devices. Covers Xiaomi Mi Unlock Tool account binding, OnePlus, Google Pixel, Motorola, and generic MTK/Qualcomm devices, alongside OEM unlocking switches, driver fixes, and data safety precautions.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {['OEM Unlocking', 'Fastboot Protocol', 'Mi Unlock', 'Token Auth', 'Multi-OEM'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-neutral-200/80 dark:border-neutral-800/80">
+              <a
+                href="https://github.com/mkr-infinity/Guide-to-unlock-Bootloader"
+                target="_blank"
+                rel="noreferrer"
+                className="clay-button-primary w-full py-2.5 px-4 text-xs flex items-center justify-center gap-2 group"
+              >
+                <span>Read Bootloader Unlock Guide</span>
+                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+          </div>
+
+          {/* Guide 2: GSI Flashing Guide */}
+          <div className="clay-card p-5 sm:p-6 flex flex-col justify-between space-y-4 hover:translate-y-[-2px] transition-all">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="clay-pill text-[11px] font-mono text-cyber-lime bg-cyber-lime/10 border-cyber-lime/30">
+                  <Layers className="w-3 h-3 inline mr-1" />
+                  PROJECT TREBLE &amp; GSI
+                </span>
+                <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500 font-semibold">
+                  Official Repository
+                </span>
+              </div>
+
+              <div>
+                <h4 className="text-base sm:text-lg font-mono font-bold text-neutral-950 dark:text-cyber-text leading-snug">
+                  Guide for Flashing GSI to Any Device
+                </h4>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 mt-2 leading-relaxed font-sans">
+                  Comprehensive engineering manual for flashing Generic System Images (GSI) onto Android 10+ devices with dynamic super partitions. Includes steps for entering fastbootd mode, resizing logical partitions, flashing system.img, disabling vbmeta verification, and bootloop prevention.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {['Project Treble', 'fastbootd', 'Dynamic Partitions', 'system.img', 'dm-verity'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-neutral-200/80 dark:border-neutral-800/80">
+              <a
+                href="https://github.com/mkr-infinity/Guide-for-flashing-GSI-to-any-device"
+                target="_blank"
+                rel="noreferrer"
+                className="clay-button-primary w-full py-2.5 px-4 text-xs flex items-center justify-center gap-2 group"
+              >
+                <span>Read GSI Flashing Guide</span>
+                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Sponsor / Buy Me a Coffee Block */}
       <section className="clay-card p-6 sm:p-8 space-y-4">
         <div className="flex items-center gap-3">
-          <span className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-sm">
+          <span className="p-2.5 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 shadow-sm">
             <CoffeeIcon className="w-5 h-5" />
           </span>
           <div>
@@ -160,8 +282,8 @@ export const AboutProfile: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl">
-          Android Command Cheatsheet is completely free and open-source. If this documentation reference speeds up your Android development, testing, or device flashing workflow, sponsoring via Buy Me a Coffee helps maintain and expand the command database.
+        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl font-sans">
+          Android Command Cheatsheet and its companion flashing guides are 100% free and open-source. If this technical documentation accelerates your Android development, firmware debugging, or device testing, sponsoring on Buy Me a Coffee directly fuels further updates and tools.
         </p>
 
         <div className="pt-2">

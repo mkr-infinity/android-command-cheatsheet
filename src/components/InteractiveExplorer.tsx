@@ -237,7 +237,7 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
                     : 'text-neutral-600 dark:text-cyber-muted'
                 }`}
               >
-                <Zap className="w-3.5 h-3.5 text-amber-500" />
+                <Zap className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                 <span>Fastboot</span>
               </button>
             </div>

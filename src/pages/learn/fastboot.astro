@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Zap, AlertTriangle, AlertOctagon, ShieldCheck, ArrowRight, HardDrive, Cpu, Terminal } from 'lucide-react';
+import { Zap, AlertTriangle, AlertOctagon, ShieldCheck, ArrowRight, HardDrive, Cpu, Terminal, Unlock, Layers, ExternalLink } from 'lucide-react';
 import { CopyButton } from '../../components/CopyButton';
 
 const rawBase = import.meta.env.BASE_URL || '/';
@@ -199,13 +199,43 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             <CopyButton client:load text="fastboot getvar unlocked" />
           </div>
         </div>
+
+        <!-- Official Companion Repository Callout: Guide to Unlock Bootloader -->
+        <div class="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10 space-y-3">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <span class="clay-pill text-[11px] font-mono text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30">
+              <Unlock className="w-3 h-3 inline mr-1" />
+              OFFICIAL COMPANION GUIDE
+            </span>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 font-semibold">GitHub Repository</span>
+          </div>
+          <div>
+            <h3 class="font-mono text-sm sm:text-base font-bold text-neutral-900 dark:text-cyber-text">
+              Looking for OEM-Specific Unlock Instructions (Xiaomi, Pixel, OnePlus, Motorola)?
+            </h3>
+            <p class="text-xs text-neutral-600 dark:text-neutral-300 mt-1 leading-relaxed font-sans">
+              Unlocking often requires brand-specific tokens, waiting periods (such as Xiaomi's 168-hour binding), or carrier permission. Refer to the complete step-by-step master handbook maintained by <strong>@mkr-infinity</strong>:
+            </p>
+          </div>
+          <div>
+            <a
+              href="https://github.com/mkr-infinity/Guide-to-unlock-Bootloader"
+              target="_blank"
+              rel="noreferrer"
+              class="clay-button inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold text-neutral-900 dark:text-cyber-text hover:text-amber-700 dark:hover:text-amber-400"
+            >
+              <span>Read Guide-to-unlock-Bootloader</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Section 6: Flashing Basics & Booting -->
     <section class="space-y-4">
       <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
-        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">06</span>
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 font-mono">06</span>
         <span>Flashing Basics &amp; Live Booting</span>
       </h2>
       <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-xs sm:text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
@@ -214,7 +244,7 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             "boot" vs "flash" — Test before you write:
           </strong>
           <p>
-            You can test a kernel or recovery image in RAM without writing to flash storage using <code class="font-mono text-cyber-lime">fastboot boot &lt;image.img&gt;</code>. If anything goes wrong, a simple power cycle restores your original state unharmed.
+            You can test a kernel or recovery image in RAM without writing to flash storage using <code class="font-mono text-cyber-lime font-bold">fastboot boot &lt;image.img&gt;</code>. If anything goes wrong, a simple power cycle restores your original state unharmed.
           </p>
         </div>
 
@@ -230,6 +260,36 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           <div class="flex items-center justify-between p-3 rounded-lg bg-neutral-50 dark:bg-cyber-dark font-mono text-xs">
             <span class="text-neutral-900 dark:text-cyber-lime">fastboot reboot</span>
             <CopyButton client:load text="fastboot reboot" showText={false} />
+          </div>
+        </div>
+
+        <!-- Official Companion Repository Callout: GSI Flashing Guide -->
+        <div class="p-4 rounded-xl border border-cyber-lime/40 bg-cyber-lime/5 dark:bg-cyber-lime/10 space-y-2.5 mt-4">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <span class="clay-pill text-[11px] font-mono text-cyber-lime bg-cyber-lime/10 border-cyber-lime/30 font-bold">
+              <Layers className="w-3 h-3 inline mr-1" />
+              OFFICIAL COMPANION GUIDE
+            </span>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400 font-semibold">Project Treble &amp; fastbootd</span>
+          </div>
+          <div>
+            <h4 class="font-mono text-sm sm:text-base font-bold text-neutral-900 dark:text-cyber-text">
+              Flashing Generic System Images (GSI) on Android 10+?
+            </h4>
+            <p class="text-xs text-neutral-600 dark:text-neutral-300 mt-1 leading-relaxed font-sans">
+              Modern Android devices use dynamic partitions managed by <code>fastbootd</code>. Flashing a custom GSI requires wiping logical partitions, disabling dm-verity on vbmeta, and resizing system. Follow the official guide by <strong>@mkr-infinity</strong>:
+            </p>
+          </div>
+          <div>
+            <a
+              href="https://github.com/mkr-infinity/Guide-for-flashing-GSI-to-any-device"
+              target="_blank"
+              rel="noreferrer"
+              class="clay-button inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold text-neutral-900 dark:text-cyber-text hover:text-cyber-lime"
+            >
+              <span>Read Guide-for-flashing-GSI-to-any-device</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       </div>

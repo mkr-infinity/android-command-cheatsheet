@@ -6,10 +6,19 @@
   :root {
     --bg-main: #F4F5F7;
     --bg-surface: #FFFFFF;
-    --border-color: #D8DCE3;
+    --border-color: #CBD1DC;
     --text-primary: #0A0A0A;
-    --text-secondary: #4A4A4A;
-    --accent-lime: #E2F952;
+    --text-secondary: #404040;
+    
+    /* Light Theme: Deep technical emerald for ultra-sharp readability (5.5:1 contrast against white) */
+    --accent-lime-rgb: 4 120 87;
+    --accent-lime: rgb(4 120 87);
+    --accent-lime-dim: rgba(4, 120, 87, 0.08);
+    --accent-lime-border: rgba(4, 120, 87, 0.25);
+    
+    /* Light Theme: High-contrast rich amber/ochre for warnings & fastboot highlights */
+    --accent-amber-rgb: 180 83 9;
+    --accent-amber: rgb(180 83 9);
   }
 
   html.dark {
@@ -18,7 +27,16 @@
     --border-color: #242424;
     --text-primary: #FAFAFA;
     --text-secondary: #A3A3A3;
-    --accent-lime: #E2F952;
+    
+    /* Dark Theme: Vibrant Electric Cybercore Lime */
+    --accent-lime-rgb: 226 249 82;
+    --accent-lime: rgb(226 249 82);
+    --accent-lime-dim: rgba(226, 249, 82, 0.1);
+    --accent-lime-border: rgba(226, 249, 82, 0.35);
+    
+    /* Dark Theme: Electric Amber */
+    --accent-amber-rgb: 245 158 11;
+    --accent-amber: rgb(245 158 11);
   }
 
   body {
@@ -107,7 +125,25 @@ html.dark .clay-button:active {
 }
 
 .clay-button-primary {
-  @apply inline-flex items-center justify-center font-mono font-bold rounded-xl transition-all duration-150 cursor-pointer select-none text-black;
+  @apply inline-flex items-center justify-center font-mono font-bold rounded-xl transition-all duration-150 cursor-pointer select-none text-white dark:text-black;
+  background: #0f1115;
+  border: 1.5px solid #000000;
+  box-shadow: 
+    inset 1px 1px 1px rgba(255, 255, 255, 0.2), 
+    inset -1px -2px 3px rgba(0, 0, 0, 0.25), 
+    0 4px 0 #000000;
+}
+
+.clay-button-primary:hover {
+  background: #1f232b;
+}
+
+.clay-button-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #000000;
+}
+
+html.dark .clay-button-primary {
   background: #E2F952;
   border: 1.5px solid #242424;
   box-shadow: 
@@ -116,11 +152,11 @@ html.dark .clay-button:active {
     0 4px 0 #000000;
 }
 
-.clay-button-primary:hover {
+html.dark .clay-button-primary:hover {
   background: #EEFF6B;
 }
 
-.clay-button-primary:active {
+html.dark .clay-button-primary:active {
   transform: translateY(2px);
   box-shadow: 0 1px 0 #000000;
 }

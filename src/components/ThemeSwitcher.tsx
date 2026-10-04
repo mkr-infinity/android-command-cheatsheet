@@ -43,7 +43,7 @@ export const ThemeSwitcher: React.FC = () => {
       <div className="w-full flex items-center justify-between px-1.5 text-xs pointer-events-none">
         <Sun
           className={`w-3.5 h-3.5 transition-colors duration-200 ${
-            !isDark ? 'text-amber-500 opacity-100' : 'text-neutral-600 opacity-40'
+            !isDark ? 'text-amber-700 opacity-100' : 'text-neutral-600 opacity-40'
           }`}
         />
         <Moon
@@ -58,13 +58,13 @@ export const ThemeSwitcher: React.FC = () => {
         className={`absolute top-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
           isDark
             ? 'left-9 bg-neutral-800 text-cyber-lime shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_2px_6px_rgba(0,0,0,0.8),0_0_8px_rgba(226,249,82,0.3)] border border-neutral-700'
-            : 'left-1 bg-white text-amber-500 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_2px_5px_rgba(0,0,0,0.15)] border border-neutral-200'
+            : 'left-1 bg-white text-amber-700 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_2px_5px_rgba(0,0,0,0.15)] border border-neutral-300'
         }`}
       >
         {isDark ? (
           <Moon className="w-3.5 h-3.5 fill-cyber-lime/20 text-cyber-lime" />
         ) : (
-          <Sun className="w-3.5 h-3.5 fill-amber-500/20 text-amber-500" />
+          <Sun className="w-3.5 h-3.5 fill-amber-500/20 text-amber-700" />
         )}
       </span>
     </button>

@@ -27,6 +27,7 @@ import {
   Trash2,
   Unlock,
   PlaySquare,
+  ExternalLink,
 } from 'lucide-react';
 import { GithubIcon, CoffeeIcon } from './icons/BrandIcons';
 import { adbCategories, fastbootCategories } from '../data';
@@ -122,27 +123,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const getFastbootCategoryIcon = (category: string) => {
     switch (category) {
       case 'Device Detection':
-        return <Search className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Search className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Device Information':
-        return <Info className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Info className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Reboot':
-        return <RotateCw className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <RotateCw className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Bootloader':
-        return <Cpu className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Cpu className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Partitions':
-        return <Layers className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Layers className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Flashing':
-        return <HardDriveDownload className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <HardDriveDownload className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Erasing':
-        return <Trash2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Trash2 className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Unlock/Lock':
-        return <Unlock className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Unlock className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Boot Images':
-        return <PlaySquare className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <PlaySquare className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       case 'Advanced':
-        return <Flame className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Flame className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
       default:
-        return <Zap className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+        return <Zap className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />;
     }
   };
 
@@ -349,6 +350,40 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 ))}
               </div>
             )}
+          </div>
+
+          {/* Official Companion Guides */}
+          <div className="pt-2 pb-1">
+            <div className="px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-bold">
+              Companion Guides
+            </div>
+            <div className="space-y-0.5 mt-0.5">
+              <a
+                href="https://github.com/mkr-infinity/Guide-to-unlock-Bootloader"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between px-3 py-1.5 rounded-xl text-xs text-neutral-700 dark:text-neutral-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-neutral-100/60 dark:hover:bg-neutral-900/60 transition-all group"
+              >
+                <div className="flex items-center gap-2 truncate">
+                  <Unlock className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />
+                  <span className="truncate font-mono">Unlock Bootloader</span>
+                </div>
+                <ExternalLink className="w-3 h-3 text-neutral-400 opacity-60 group-hover:opacity-100 shrink-0 ml-1" />
+              </a>
+
+              <a
+                href="https://github.com/mkr-infinity/Guide-for-flashing-GSI-to-any-device"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between px-3 py-1.5 rounded-xl text-xs text-neutral-700 dark:text-neutral-300 hover:text-cyber-lime hover:bg-neutral-100/60 dark:hover:bg-neutral-900/60 transition-all group"
+              >
+                <div className="flex items-center gap-2 truncate">
+                  <Layers className="w-3.5 h-3.5 text-cyber-lime shrink-0" />
+                  <span className="truncate font-mono">GSI Flashing Guide</span>
+                </div>
+                <ExternalLink className="w-3 h-3 text-neutral-400 opacity-60 group-hover:opacity-100 shrink-0 ml-1" />
+              </a>
+            </div>
           </div>
 
           {/* 6. About Section with User Icon */}
