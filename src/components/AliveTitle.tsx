@@ -80,19 +80,25 @@ export const AliveTitle: React.FC = () => {
         </span>
       </span>
 
-      {/* Cybercore Display Box Container: Locks the animated word inside and never overflows */}
+      {/* Cybercore Display Box Container: Strictly fixed dimensions so the box never resizes */}
       <div className="inline-flex items-center shrink-0">
-        <div className="relative flex items-center justify-center px-4 sm:px-6 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl border-2 border-cyber-lime/40 dark:border-cyber-lime/60 bg-white/95 dark:bg-[#0c0d11]/95 shadow-[0_4px_20px_rgba(0,0,0,0.06),inset_0_1px_2px_rgba(255,255,255,0.9)] dark:shadow-[0_0_24px_rgba(204,255,0,0.14),inset_0_2px_4px_rgba(0,0,0,0.85)] min-w-[200px] sm:min-w-[270px] md:min-w-[320px] max-w-full overflow-hidden backdrop-blur-md transition-all">
-          {/* Subtle ambient display glow */}
-          <div className="absolute inset-0 bg-cyber-lime/5 pointer-events-none rounded-xl sm:rounded-2xl" />
+        <div className="relative flex items-center justify-center w-[210px] xs:w-[240px] sm:w-[280px] md:w-[320px] h-[48px] sm:h-[58px] md:h-[66px] rounded-xl sm:rounded-2xl border-2 border-cyber-lime/50 dark:border-cyber-lime/60 bg-white dark:bg-[#0c0d11] shadow-[0_4px_20px_rgba(0,0,0,0.06),inset_0_1px_2px_rgba(255,255,255,0.9)] dark:shadow-[0_0_24px_rgba(204,255,0,0.14),inset_0_2px_4px_rgba(0,0,0,0.85)] overflow-hidden shrink-0 select-none">
+          {/* Hardware HUD accents at corners */}
+          <div className="absolute top-1.5 left-2 w-1.5 h-1.5 border-t border-l border-cyber-lime/70 pointer-events-none" />
+          <div className="absolute top-1.5 right-2 w-1.5 h-1.5 border-t border-r border-cyber-lime/70 pointer-events-none" />
+          <div className="absolute bottom-1.5 left-2 w-1.5 h-1.5 border-b border-l border-cyber-lime/70 pointer-events-none" />
+          <div className="absolute bottom-1.5 right-2 w-1.5 h-1.5 border-b border-r border-cyber-lime/70 pointer-events-none" />
 
-          {/* Contained dynamic text */}
+          {/* Ambient inner display glow */}
+          <div className="absolute inset-0 bg-cyber-lime/[0.04] pointer-events-none" />
+
+          {/* Contained dynamic text: sized specifically to fit comfortably inside the fixed container */}
           <span
-            className={`relative z-10 transition-all duration-200 inline-flex items-center justify-center whitespace-nowrap select-none ${currentFont.className}`}
+            className={`relative z-10 transition-all duration-200 inline-flex items-center justify-center whitespace-nowrap text-lg xs:text-xl sm:text-2xl md:text-3xl font-extrabold ${currentFont.className}`}
             style={currentFont.style}
           >
             <span>{displayText}</span>
-            <span className="inline-block w-1.5 h-5 sm:h-7 md:h-8 bg-cyber-lime ml-1.5 rounded-sm animate-pulse shadow-[0_0_10px_rgb(var(--accent-lime-rgb))]" />
+            <span className="inline-block w-1.5 h-4 sm:h-5 md:h-6 bg-cyber-lime ml-1.5 rounded-sm animate-pulse shadow-[0_0_10px_rgb(var(--accent-lime-rgb))]" />
           </span>
         </div>
       </div>
