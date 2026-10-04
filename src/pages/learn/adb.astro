@@ -36,25 +36,25 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
     <!-- Section 1: What is ADB? -->
     <section class="space-y-4">
       <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
-        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">01</span>
+        <span class="px-2 py-0.5 rounded-lg bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono font-bold">01</span>
         <span>What is ADB?</span>
       </h2>
-      <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+      <div class="clay-card p-6 space-y-4 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-sans">
         <p>
           ADB operates as a <strong>client-server architecture</strong> comprised of three independent components:
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+          <div class="p-3.5 rounded-xl bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 space-y-1">
             <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-lime block">1. The Client</strong>
-            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Runs on your computer when you type any <code class="font-mono text-neutral-900 dark:text-neutral-200">adb</code> command in terminal.</p>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Runs on your computer when you type any <code class="font-mono text-neutral-900 dark:text-neutral-200">adb</code> command in terminal.</p>
           </div>
-          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+          <div class="p-3.5 rounded-xl bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 space-y-1">
             <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-lime block">2. The Server</strong>
-            <p class="text-xs text-neutral-600 dark:text-cyber-muted">A background daemon on host port <code class="font-mono text-neutral-900 dark:text-neutral-200">5037</code> managing transport routes between client and devices.</p>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">A background daemon on host port <code class="font-mono text-neutral-900 dark:text-neutral-200">5037</code> managing transport routes between client and devices.</p>
           </div>
-          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+          <div class="p-3.5 rounded-xl bg-neutral-100/60 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 space-y-1">
             <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-lime block">3. The Daemon (adbd)</strong>
-            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Runs continuously on the target Android hardware or emulator background as a system service.</p>
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">Runs continuously on the target Android hardware or emulator background as a system service.</p>
           </div>
         </div>
       </div>

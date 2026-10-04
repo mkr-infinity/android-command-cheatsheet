@@ -26,11 +26,15 @@ export const Header: React.FC<HeaderProps> = ({
           type="button"
           onClick={onToggleSidebar}
           aria-label={isSidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
-          className="flex items-center gap-1.5 p-2 rounded-lg border border-neutral-200 dark:border-cyber-border text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime hover:bg-neutral-100 dark:hover:bg-cyber-surface transition-all focus:outline-none focus:ring-1 focus:ring-cyber-lime"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium transition-all select-none active:translate-y-0.5 ${
+            isSidebarOpen
+              ? 'border-cyber-lime/40 bg-cyber-lime/10 text-neutral-900 dark:text-cyber-lime shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]'
+              : 'border-neutral-200 dark:border-cyber-border bg-neutral-100 hover:bg-neutral-200 dark:bg-cyber-surface dark:hover:bg-cyber-surfaceHover text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
+          }`}
           title={isSidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
         >
           <PanelLeft className="w-4 h-4 stroke-[2]" />
-          <span className="hidden sm:inline font-mono text-xs font-medium">Sidebar</span>
+          <span className="hidden sm:inline">Sidebar</span>
         </button>
 
         <a
@@ -53,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           type="button"
           onClick={onOpenSearch}
-          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-lg border border-neutral-200 dark:border-cyber-border bg-neutral-50 hover:bg-neutral-100 dark:bg-cyber-surface/70 hover:dark:bg-cyber-surfaceHover text-neutral-500 dark:text-cyber-muted transition-all focus:outline-none focus:ring-1 focus:ring-cyber-lime"
+          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl border border-neutral-200 dark:border-cyber-border bg-neutral-50 hover:bg-neutral-100 dark:bg-cyber-surface/70 hover:dark:bg-cyber-surfaceHover text-neutral-500 dark:text-cyber-muted transition-all focus:outline-none focus:ring-1 focus:ring-cyber-lime"
         >
           <div className="flex items-center gap-2 text-xs font-mono">
             <Search className="w-3.5 h-3.5 text-cyber-lime" />
@@ -71,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
           type="button"
           onClick={onOpenSearch}
           aria-label="Search commands"
-          className="flex lg:hidden p-2 rounded-lg border border-neutral-200 dark:border-cyber-border text-neutral-600 dark:text-cyber-muted hover:bg-neutral-100 dark:hover:bg-cyber-surface"
+          className="flex lg:hidden p-2 rounded-xl border border-neutral-200 dark:border-cyber-border text-neutral-600 dark:text-cyber-muted hover:bg-neutral-100 dark:hover:bg-cyber-surface"
         >
           <Search className="w-4 h-4 text-cyber-lime" />
         </button>
@@ -80,11 +84,11 @@ export const Header: React.FC<HeaderProps> = ({
           href="https://buymeacoffee.com/mkr_infinity"
           target="_blank"
           rel="noreferrer"
-          className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono border border-neutral-200 dark:border-cyber-border bg-neutral-50 hover:bg-neutral-100 dark:bg-cyber-surface hover:dark:bg-cyber-surfaceHover text-neutral-700 dark:text-cyber-muted hover:text-neutral-900 dark:hover:text-cyber-lime transition-all"
-          title="Support project on Buy Me a Coffee"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono border border-neutral-200 dark:border-cyber-border bg-neutral-50 hover:bg-neutral-100 dark:bg-cyber-surface hover:dark:bg-cyber-surfaceHover text-neutral-700 dark:text-cyber-muted hover:text-neutral-900 dark:hover:text-cyber-lime transition-all active:translate-y-0.5"
+          title="Sponsor project on Buy Me a Coffee"
         >
           <CoffeeIcon className="w-3.5 h-3.5 text-amber-500" />
-          <span>Support</span>
+          <span>Sponsor</span>
         </a>
 
         <a
@@ -92,13 +96,13 @@ export const Header: React.FC<HeaderProps> = ({
           target="_blank"
           rel="noreferrer"
           aria-label="GitHub Repository"
-          className="p-2 rounded-lg border border-neutral-200 dark:border-cyber-border text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime hover:bg-neutral-100 dark:hover:bg-cyber-surface transition-colors"
+          className="p-2 rounded-xl border border-neutral-200 dark:border-cyber-border text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime hover:bg-neutral-100 dark:hover:bg-cyber-surface transition-colors active:translate-y-0.5"
           title="GitHub Repository"
         >
           <GithubIcon className="w-4 h-4" />
         </a>
 
-        {/* Theme Switcher */}
+        {/* Unique Theme Switcher */}
         <ThemeSwitcher />
       </div>
     </header>

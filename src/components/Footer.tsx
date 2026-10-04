@@ -30,7 +30,7 @@ export const Footer: React.FC<FooterProps> = () => {
             className="inline-flex items-center gap-1 text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime transition-colors"
           >
             <CoffeeIcon className="w-3.5 h-3.5 text-amber-500" />
-            <span>Support</span>
+            <span>Sponsor</span>
           </a>
           <span className="text-neutral-300 dark:text-cyber-border">•</span>
           <a

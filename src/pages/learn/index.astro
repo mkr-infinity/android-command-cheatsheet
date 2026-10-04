@@ -13,45 +13,45 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
   <div class="space-y-10 max-w-5xl mx-auto">
     {/* Header */}
     <div class="space-y-3">
-      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-mono bg-cyber-limeDim text-neutral-900 dark:text-cyber-lime border border-cyber-limeBorder">
+      <div class="clay-pill text-xs font-mono text-neutral-900 dark:text-cyber-lime">
         <BookOpen className="w-3.5 h-3.5 text-cyber-lime" />
         <span>KNOWLEDGE BASE &amp; TUTORIALS</span>
       </div>
       <h1 class="text-3xl md:text-4xl font-mono font-bold text-neutral-900 dark:text-cyber-text">
         Learn Android Tooling
       </h1>
-      <p class="text-neutral-600 dark:text-cyber-muted text-sm md:text-base max-w-2xl leading-relaxed">
+      <p class="text-neutral-600 dark:text-neutral-300 text-sm md:text-base max-w-2xl leading-relaxed font-sans">
         Step-by-step technical guides designed for developers, technicians, and Android enthusiasts to configure, debug, and flash devices with confidence.
       </p>
     </div>
 
-    {/* Two Primary Pillars */}
+    {/* Two Primary Pillars with Claymorphic Cards */}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* ADB Guide Card */}
       <a
         href={`${basePath}/learn/adb/`.replace(/\/+/g, '/')}
-        class="group p-6 md:p-8 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-neutral-400 dark:hover:border-cyber-borderHover transition-all duration-200 shadow-sm hover:shadow-cyber flex flex-col justify-between"
+        class="clay-card group p-6 md:p-8 flex flex-col justify-between hover:translate-y-[-2px] transition-all"
       >
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="p-2.5 rounded-xl bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder">
+            <span class="p-2.5 rounded-xl bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder shadow-sm">
               <Terminal className="w-6 h-6 text-neutral-900 dark:text-cyber-lime" />
             </span>
-            <span class="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-cyber-dark text-neutral-600 dark:text-cyber-muted border border-neutral-200 dark:border-cyber-border">
+            <span class="clay-pill text-xs text-neutral-600 dark:text-neutral-400">
               8 Step Guide
             </span>
           </div>
 
           <div>
-            <h2 class="text-xl font-mono font-bold text-neutral-900 dark:text-cyber-text group-hover:text-cyber-lime dark:group-hover:text-cyber-lime transition-colors">
+            <h2 class="text-xl font-mono font-bold text-neutral-900 dark:text-cyber-text group-hover:text-cyber-lime transition-colors">
               Getting Started with ADB
             </h2>
-            <p class="text-xs md:text-sm text-neutral-600 dark:text-cyber-muted mt-2 leading-relaxed">
+            <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-400 mt-2 leading-relaxed font-sans">
               Understand the client-server architecture of Android Debug Bridge, install SDK platform tools, enable Developer Options, authorize USB debugging keys, and connect over Wi-Fi.
             </p>
           </div>
 
-          <ul class="space-y-2 text-xs font-mono text-neutral-500 dark:text-cyber-muted pt-2 border-t border-neutral-200 dark:border-cyber-border/40">
+          <ul class="space-y-2 text-xs font-mono text-neutral-500 dark:text-neutral-400 pt-2 border-t border-neutral-200 dark:border-neutral-800">
             <li class="flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-cyber-lime" />
               <span>Platform-tools installation (Win / Mac / Linux)</span>
@@ -71,7 +71,7 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           </ul>
         </div>
 
-        <div class="pt-6 mt-6 flex items-center justify-between border-t border-neutral-200 dark:border-cyber-border/40 text-xs font-mono text-neutral-900 dark:text-cyber-lime font-semibold">
+        <div class="pt-6 mt-6 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 text-xs font-mono text-neutral-900 dark:text-cyber-lime font-bold">
           <span>Read ADB Guide</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>
@@ -80,14 +80,14 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
       {/* Fastboot Guide Card */}
       <a
         href={`${basePath}/learn/fastboot/`.replace(/\/+/g, '/')}
-        class="group p-6 md:p-8 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-amber-500/40 dark:hover:border-cyber-borderHover transition-all duration-200 shadow-sm hover:shadow-cyber flex flex-col justify-between"
+        class="clay-card group p-6 md:p-8 flex flex-col justify-between hover:translate-y-[-2px] transition-all"
       >
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20">
+            <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-sm">
               <Zap className="w-6 h-6" />
             </span>
-            <span class="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-cyber-dark text-neutral-600 dark:text-cyber-muted border border-neutral-200 dark:border-cyber-border">
+            <span class="clay-pill text-xs text-neutral-600 dark:text-neutral-400">
               8 Step Guide
             </span>
           </div>
@@ -96,12 +96,12 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
             <h2 class="text-xl font-mono font-bold text-neutral-900 dark:text-cyber-text group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
               Getting Started with Fastboot
             </h2>
-            <p class="text-xs md:text-sm text-neutral-600 dark:text-cyber-muted mt-2 leading-relaxed">
+            <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-400 mt-2 leading-relaxed font-sans">
               Master the low-level Android bootloader protocol. Learn hardware key combinations, check partition tables, understand A/B slot architecture, unlock security, and flash safely.
             </p>
           </div>
 
-          <ul class="space-y-2 text-xs font-mono text-neutral-500 dark:text-cyber-muted pt-2 border-t border-neutral-200 dark:border-cyber-border/40">
+          <ul class="space-y-2 text-xs font-mono text-neutral-500 dark:text-neutral-400 pt-2 border-t border-neutral-200 dark:border-neutral-800">
             <li class="flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-amber-500" />
               <span>Entering Bootloader &amp; FastbootD mode</span>
@@ -121,7 +121,7 @@ const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
           </ul>
         </div>
 
-        <div class="pt-6 mt-6 flex items-center justify-between border-t border-neutral-200 dark:border-cyber-border/40 text-xs font-mono text-amber-600 dark:text-amber-400 font-semibold">
+        <div class="pt-6 mt-6 flex items-center justify-between border-t border-neutral-200 dark:border-neutral-800 text-xs font-mono text-amber-600 dark:text-amber-400 font-bold">
           <span>Read Fastboot Guide</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </div>

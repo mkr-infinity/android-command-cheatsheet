@@ -149,16 +149,16 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Filter Bar: Tabs & Search Input */}
-      <div className="p-4 md:p-6 rounded-2xl border border-neutral-200 dark:border-cyber-border bg-white dark:bg-cyber-surface shadow-sm space-y-4">
+      <div className="clay-card p-4 md:p-6 space-y-4">
         {/* Navigation Tabs: All / Favorites / History */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-neutral-100 dark:border-cyber-border/40">
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-neutral-100 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-neutral-200 dark:border-neutral-800">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-neutral-100 dark:bg-[#0c0c0e] border border-neutral-200 dark:border-neutral-800">
             <button
               type="button"
               onClick={() => setViewTab('all')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
                 viewTab === 'all'
-                  ? 'bg-white dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime shadow-sm border border-neutral-300 dark:border-cyber-limeBorder font-semibold'
+                  ? 'bg-white dark:bg-[#1a1a1e] text-neutral-950 dark:text-cyber-lime shadow-sm border border-neutral-300 dark:border-neutral-700 font-bold'
                   : 'text-neutral-600 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
               }`}
             >
@@ -170,7 +170,7 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
               onClick={() => setViewTab('favorites')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
                 viewTab === 'favorites'
-                  ? 'bg-white dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime shadow-sm border border-neutral-300 dark:border-cyber-limeBorder font-semibold'
+                  ? 'bg-white dark:bg-[#1a1a1e] text-neutral-950 dark:text-cyber-lime shadow-sm border border-neutral-300 dark:border-neutral-700 font-bold'
                   : 'text-neutral-600 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
               }`}
             >
@@ -188,7 +188,7 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
               onClick={() => setViewTab('recent')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
                 viewTab === 'recent'
-                  ? 'bg-white dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime shadow-sm border border-neutral-300 dark:border-cyber-limeBorder font-semibold'
+                  ? 'bg-white dark:bg-[#1a1a1e] text-neutral-950 dark:text-cyber-lime shadow-sm border border-neutral-300 dark:border-neutral-700 font-bold'
                   : 'text-neutral-600 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
               }`}
             >
@@ -204,14 +204,14 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
 
           {/* Tool Selector (If on / page) */}
           {initialTool === 'all' && (
-            <div className="flex items-center gap-1 text-xs font-mono">
+            <div className="flex items-center gap-1.5 text-xs font-mono">
               <button
                 type="button"
                 onClick={() => setSelectedTool('all')}
-                className={`px-3 py-1.5 rounded-lg border transition-all ${
+                className={`clay-button px-3 py-1.5 ${
                   selectedTool === 'all'
-                    ? 'border-neutral-900 dark:border-cyber-lime text-neutral-950 dark:text-cyber-lime bg-neutral-100 dark:bg-cyber-lime/10 font-bold'
-                    : 'border-neutral-200 dark:border-cyber-border text-neutral-600 dark:text-cyber-muted hover:bg-neutral-50 dark:hover:bg-cyber-surfaceHover'
+                    ? 'border-neutral-900 dark:border-cyber-lime text-neutral-950 dark:text-cyber-lime bg-neutral-200 dark:bg-cyber-lime/10 font-bold'
+                    : 'text-neutral-600 dark:text-cyber-muted'
                 }`}
               >
                 All Tools
@@ -219,10 +219,10 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
               <button
                 type="button"
                 onClick={() => setSelectedTool('adb')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all ${
+                className={`clay-button flex items-center gap-1.5 px-3 py-1.5 ${
                   selectedTool === 'adb'
-                    ? 'border-neutral-900 dark:border-cyber-lime text-neutral-950 dark:text-cyber-lime bg-neutral-100 dark:bg-cyber-lime/10 font-bold'
-                    : 'border-neutral-200 dark:border-cyber-border text-neutral-600 dark:text-cyber-muted hover:bg-neutral-50 dark:hover:bg-cyber-surfaceHover'
+                    ? 'border-neutral-900 dark:border-cyber-lime text-neutral-950 dark:text-cyber-lime bg-neutral-200 dark:bg-cyber-lime/10 font-bold'
+                    : 'text-neutral-600 dark:text-cyber-muted'
                 }`}
               >
                 <Terminal className="w-3.5 h-3.5 text-cyber-lime" />
@@ -231,10 +231,10 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
               <button
                 type="button"
                 onClick={() => setSelectedTool('fastboot')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all ${
+                className={`clay-button flex items-center gap-1.5 px-3 py-1.5 ${
                   selectedTool === 'fastboot'
-                    ? 'border-neutral-900 dark:border-cyber-lime text-neutral-950 dark:text-cyber-lime bg-neutral-100 dark:bg-cyber-lime/10 font-bold'
-                    : 'border-neutral-200 dark:border-cyber-border text-neutral-600 dark:text-cyber-muted hover:bg-neutral-50 dark:hover:bg-cyber-surfaceHover'
+                    ? 'border-neutral-900 dark:border-cyber-lime text-neutral-950 dark:text-cyber-lime bg-neutral-200 dark:bg-cyber-lime/10 font-bold'
+                    : 'text-neutral-600 dark:text-cyber-muted'
                 }`}
               >
                 <Zap className="w-3.5 h-3.5 text-amber-500" />
@@ -252,7 +252,7 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Filter commands by keyword, flag, description (e.g. logcat, reboot, pull, unlock)..."
-            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-200 dark:border-cyber-border bg-neutral-50 dark:bg-cyber-dark text-sm font-sans text-neutral-950 dark:text-cyber-text placeholder:text-neutral-400 dark:placeholder:text-cyber-dim focus:outline-none focus:ring-1 focus:ring-cyber-lime focus:border-cyber-lime transition-all"
+            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#09090b] text-sm font-sans text-neutral-950 dark:text-cyber-text placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-cyber-lime/50 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
           />
           {searchQuery && (
             <button
@@ -274,10 +274,10 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition-all border ${
+                className={`px-3 py-1 rounded-xl text-xs font-mono whitespace-nowrap transition-all select-none active:translate-y-0.5 ${
                   selectedCategory === cat
-                    ? 'bg-neutral-900 text-white dark:bg-cyber-lime dark:text-black border-neutral-900 dark:border-cyber-lime font-bold shadow-sm'
-                    : 'bg-neutral-100 hover:bg-neutral-200 dark:bg-cyber-dark dark:hover:bg-cyber-surfaceHover border-neutral-200 dark:border-cyber-border text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
+                    ? 'bg-neutral-900 text-white dark:bg-cyber-lime dark:text-black font-bold shadow-sm border border-neutral-900 dark:border-cyber-lime'
+                    : 'clay-button text-neutral-700 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-cyber-text'
                 }`}
               >
                 {cat}
@@ -286,8 +286,8 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
           </div>
 
           {/* Risk Level Filter */}
-          <div className="flex items-center gap-1 shrink-0 self-start md:self-auto">
-            <span className="text-[11px] font-mono text-neutral-400 dark:text-cyber-dim mr-1">
+          <div className="flex items-center gap-1.5 shrink-0 self-start md:self-auto">
+            <span className="text-[11px] font-mono text-neutral-400 dark:text-neutral-500 mr-1 font-semibold">
               Risk:
             </span>
             {(['all', 'safe', 'caution', 'destructive'] as const).map((r) => (
@@ -295,10 +295,10 @@ export const InteractiveExplorer: React.FC<InteractiveExplorerProps> = ({
                 key={r}
                 type="button"
                 onClick={() => setSelectedRisk(r)}
-                className={`px-2 py-0.5 rounded text-[11px] font-mono uppercase transition-all border ${
+                className={`px-2.5 py-1 rounded-xl text-[11px] font-mono uppercase transition-all select-none active:translate-y-0.5 ${
                   selectedRisk === r
-                    ? 'border-neutral-900 dark:border-cyber-lime bg-neutral-100 dark:bg-cyber-lime/10 text-neutral-950 dark:text-cyber-lime font-bold'
-                    : 'border-neutral-200 dark:border-cyber-border text-neutral-500 dark:text-cyber-dim hover:text-neutral-800 dark:hover:text-cyber-muted'
+                    ? 'border border-neutral-900 dark:border-cyber-lime bg-neutral-200 dark:bg-cyber-lime/10 text-neutral-950 dark:text-cyber-lime font-bold shadow-sm'
+                    : 'clay-button text-neutral-600 dark:text-neutral-400'
                 }`}
               >
                 {r}
