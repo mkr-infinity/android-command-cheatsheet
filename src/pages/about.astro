@@ -1,0 +1,219 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  Sparkles,
+  Bug,
+  Terminal,
+  ShieldCheck,
+  Zap,
+  Code2,
+} from 'lucide-react';
+import {
+  GithubIcon,
+  InstagramIcon,
+  TelegramIcon,
+  GlobeIcon,
+  CoffeeIcon,
+} from '../components/icons/BrandIcons';
+import { createFeatureRequestUrl, createReportIssueUrl } from '../utils/github';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+
+const featureUrl = createFeatureRequestUrl();
+const issueUrl = createReportIssueUrl();
+const logoFullSrc = `${basePath}/assets/branding/logo.svg`.replace(/\/+/g, '/');
+---
+
+<BaseLayout
+  title="About — Android Command Cheatsheet"
+  description="About Android Command Cheatsheet, its mission, features, developer links, and project feedback channels."
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <!-- Header Hero -->
+    <div class="p-8 md:p-10 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface shadow-sm space-y-6">
+      <div class="flex items-center gap-4">
+        <img
+          src={logoFullSrc}
+          alt="Android Command Cheatsheet Logo"
+          class="h-10 sm:h-12 w-auto object-contain"
+        />
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-2xl sm:text-3xl font-mono font-bold text-neutral-900 dark:text-cyber-text">
+          About the Project
+        </h1>
+        <p class="text-sm sm:text-base text-neutral-600 dark:text-cyber-muted leading-relaxed">
+          <strong>Android Command Cheatsheet</strong> is a fast, searchable, data-driven technical reference for Android ADB and Fastboot commands.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-neutral-200 dark:border-cyber-border/40">
+        <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+          <span class="text-xs font-mono text-cyber-lime font-bold">DISCOVER</span>
+          <p class="text-xs text-neutral-600 dark:text-cyber-muted">Instant client-side fuzzy search across commands, tags, syntax, and aliases.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+          <span class="text-xs font-mono text-cyber-lime font-bold">UNDERSTAND</span>
+          <p class="text-xs text-neutral-600 dark:text-cyber-muted">Precise explanations of flags, prerequisites, and transparent risk level classifications.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+          <span class="text-xs font-mono text-amber-500 font-bold">STANDARDIZE</span>
+          <p class="text-xs text-neutral-600 dark:text-cyber-muted">Consolidate fragmented Android command documentation into a unified Cybercore console.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Permanent Action Buttons (Section 20) -->
+    <section class="p-6 md:p-8 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-neutral-50 dark:bg-cyber-surface/60 space-y-4">
+      <div>
+        <h2 class="text-lg font-mono font-bold text-neutral-900 dark:text-cyber-text">
+          Contribute &amp; Feedback
+        </h2>
+        <p class="text-xs md:text-sm text-neutral-500 dark:text-cyber-muted mt-1 leading-relaxed">
+          Encountered an outdated command, missing option, or have an idea for an enhancement? Open a ticket directly on GitHub.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a
+          href={featureUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-mono font-semibold border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-dark hover:dark:bg-cyber-surface text-neutral-900 dark:text-cyber-text hover:text-cyber-lime dark:hover:text-cyber-lime transition-all shadow-sm"
+        >
+          <Sparkles className="w-4 h-4 text-cyber-lime" />
+          <span>Request a Feature</span>
+        </a>
+
+        <a
+          href={issueUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-mono font-semibold border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-dark hover:dark:bg-cyber-surface text-neutral-900 dark:text-cyber-text hover:text-amber-500 dark:hover:text-amber-400 transition-all shadow-sm"
+        >
+          <Bug className="w-4 h-4 text-amber-500" />
+          <span>Report an Issue</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Support / Buy Me a Coffee (Section 23) -->
+    <section class="p-6 md:p-8 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 shadow-sm">
+      <div class="flex items-center gap-2.5">
+        <span class="p-2 rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20">
+          <CoffeeIcon className="w-5 h-5 text-amber-500" />
+        </span>
+        <h2 class="text-lg font-mono font-bold text-neutral-900 dark:text-cyber-text">
+          Support the Project
+        </h2>
+      </div>
+
+      <p class="text-xs sm:text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed max-w-2xl">
+        Android Command Cheatsheet is built as a free reference for developers, technicians, and Android enthusiasts. If this tool saves you time in your workflow, optional support is warmly appreciated.
+      </p>
+
+      <div class="pt-2">
+        <a
+          href="https://buymeacoffee.com/mkr_infinity"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-mono font-bold bg-[#FFDD00] text-neutral-950 hover:bg-[#FACC15] transition-all shadow-sm"
+        >
+          <CoffeeIcon className="w-4 h-4" />
+          <span>Support on Buy Me a Coffee</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Creator & Social Links (Section 22) -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-cyber-muted">
+        Connect &amp; Project Links
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <!-- GitHub Profile -->
+        <a
+          href="https://github.com/mkr-infinity"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-neutral-400 dark:hover:border-cyber-borderHover transition-all flex items-center gap-3 group"
+        >
+          <GithubIcon className="w-5 h-5 text-neutral-500 dark:text-cyber-muted group-hover:text-neutral-950 dark:group-hover:text-cyber-lime transition-colors" />
+          <div class="min-w-0">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-cyber-text block truncate">
+              mkr-infinity
+            </span>
+            <span class="text-[11px] text-neutral-500 dark:text-cyber-dim">GitHub Profile</span>
+          </div>
+        </a>
+
+        <!-- Repository -->
+        <a
+          href="https://github.com/mkr-infinity/android-command-cheatsheet"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-neutral-400 dark:hover:border-cyber-borderHover transition-all flex items-center gap-3 group"
+        >
+          <Code2 className="w-5 h-5 text-neutral-500 dark:text-cyber-muted group-hover:text-neutral-950 dark:group-hover:text-cyber-lime transition-colors" />
+          <div class="min-w-0">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-cyber-text block truncate">
+              android-command-cheatsheet
+            </span>
+            <span class="text-[11px] text-neutral-500 dark:text-cyber-dim">Source Code Repository</span>
+          </div>
+        </a>
+
+        <!-- Website -->
+        <a
+          href="https://mkr-infinity.github.io"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-neutral-400 dark:hover:border-cyber-borderHover transition-all flex items-center gap-3 group"
+        >
+          <GlobeIcon className="w-5 h-5 text-neutral-500 dark:text-cyber-muted group-hover:text-neutral-950 dark:group-hover:text-cyber-lime transition-colors" />
+          <div class="min-w-0">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-cyber-text block truncate">
+              mkr-infinity.github.io
+            </span>
+            <span class="text-[11px] text-neutral-500 dark:text-cyber-dim">Personal Website</span>
+          </div>
+        </a>
+
+        <!-- Instagram -->
+        <a
+          href="https://www.instagram.com/mkr_infinity"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-neutral-400 dark:hover:border-cyber-borderHover transition-all flex items-center gap-3 group"
+        >
+          <InstagramIcon className="w-5 h-5 text-neutral-500 dark:text-cyber-muted group-hover:text-rose-500 dark:group-hover:text-rose-400 transition-colors" />
+          <div class="min-w-0">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-cyber-text block truncate">
+              @mkr_infinity
+            </span>
+            <span class="text-[11px] text-neutral-500 dark:text-cyber-dim">Instagram</span>
+          </div>
+        </a>
+
+        <!-- Telegram -->
+        <a
+          href="https://t.me/mkr_infinity"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface hover:border-neutral-400 dark:hover:border-cyber-borderHover transition-all flex items-center gap-3 group"
+        >
+          <TelegramIcon className="w-5 h-5 text-neutral-500 dark:text-cyber-muted group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors" />
+          <div class="min-w-0">
+            <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-cyber-text block truncate">
+              @mkr_infinity
+            </span>
+            <span class="text-[11px] text-neutral-500 dark:text-cyber-dim">Telegram</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

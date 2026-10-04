@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Terminal, ShieldCheck, CheckCircle2, AlertTriangle, ArrowRight, Laptop, Smartphone, Wifi, Download } from 'lucide-react';
+import { CopyButton } from '../../components/CopyButton';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title="Getting Started with ADB — Setup & Configuration Guide"
+  description="Step-by-step technical guide to installing Android Debug Bridge, enabling Developer Options, authorizing USB debugging, and troubleshooting device detection."
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <!-- Header -->
+    <div class="space-y-4 pb-8 border-b border-neutral-200 dark:border-cyber-border">
+      <div class="flex items-center gap-2">
+        <a
+          href={`${basePath}/learn/`.replace(/\/+/g, '/')}
+          class="text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:text-cyber-muted dark:hover:text-cyber-lime"
+        >
+          ← All Guides
+        </a>
+        <span class="text-neutral-400 dark:text-cyber-border">/</span>
+        <span class="text-xs font-mono text-cyber-lime font-bold">ADB Fundamentals</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-mono font-bold text-neutral-900 dark:text-cyber-text">
+        Getting Started with ADB
+      </h1>
+      <p class="text-neutral-600 dark:text-cyber-muted text-sm sm:text-base leading-relaxed">
+        Android Debug Bridge (ADB) is the universal command-line tool connecting your computer to Android devices. Follow this complete guide to install the toolchain, unlock debugging, and verify your connection.
+      </p>
+    </div>
+
+    <!-- Section 1: What is ADB? -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">01</span>
+        <span>What is ADB?</span>
+      </h2>
+      <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+        <p>
+          ADB operates as a <strong>client-server architecture</strong> comprised of three independent components:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-lime block">1. The Client</strong>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Runs on your computer when you type any <code class="font-mono text-neutral-900 dark:text-neutral-200">adb</code> command in terminal.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-lime block">2. The Server</strong>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">A background daemon on host port <code class="font-mono text-neutral-900 dark:text-neutral-200">5037</code> managing transport routes between client and devices.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-lime block">3. The Daemon (adbd)</strong>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Runs continuously on the target Android hardware or emulator background as a system service.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Install ADB -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">02</span>
+        <span>Install ADB (Android Platform-Tools)</span>
+      </h2>
+      <div class="space-y-3">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted">
+          Install the official platform-tools package using your operating system package manager:
+        </p>
+        <div class="space-y-2.5">
+          <div class="p-4 rounded-xl bg-neutral-950 dark:bg-cyber-black border border-neutral-800 dark:border-cyber-border flex items-center justify-between gap-4">
+            <div>
+              <span class="text-[11px] font-mono text-neutral-400 block mb-1">LINUX (DEBIAN / UBUNTU / ARCH)</span>
+              <code class="text-xs sm:text-sm font-mono text-cyber-lime font-medium">sudo apt install adb fastboot  # Or: sudo pacman -S android-tools</code>
+            </div>
+            <CopyButton client:load text="sudo apt install adb fastboot" showText={false} />
+          </div>
+
+          <div class="p-4 rounded-xl bg-neutral-950 dark:bg-cyber-black border border-neutral-800 dark:border-cyber-border flex items-center justify-between gap-4">
+            <div>
+              <span class="text-[11px] font-mono text-neutral-400 block mb-1">MACOS (HOMEBREW)</span>
+              <code class="text-xs sm:text-sm font-mono text-cyber-lime font-medium">brew install android-platform-tools</code>
+            </div>
+            <CopyButton client:load text="brew install android-platform-tools" showText={false} />
+          </div>
+
+          <div class="p-4 rounded-xl bg-neutral-950 dark:bg-cyber-black border border-neutral-800 dark:border-cyber-border flex items-center justify-between gap-4">
+            <div>
+              <span class="text-[11px] font-mono text-neutral-400 block mb-1">WINDOWS (WINGET / CHOCO)</span>
+              <code class="text-xs sm:text-sm font-mono text-cyber-lime font-medium">winget install Google.PlatformTools</code>
+            </div>
+            <CopyButton client:load text="winget install Google.PlatformTools" showText={false} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Enable Developer Options -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">03</span>
+        <span>Enable Developer Options</span>
+      </h2>
+      <div class="space-y-3">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+          Developer Options is hidden by default in modern Android versions to prevent accidental modifications.
+        </p>
+        <ol class="list-decimal list-inside space-y-1.5 text-xs sm:text-sm text-neutral-800 dark:text-cyber-text">
+          <li>Open your Android device <strong>Settings</strong> app.</li>
+          <li>Scroll down and tap <strong>About phone</strong> (or <em>About tablet / About device</em>).</li>
+          <li>Find <strong>Build number</strong> (often located under <em>Software information</em> on Samsung devices).</li>
+          <li>Tap <strong>Build number 7 consecutive times</strong> until the toast notification <em>"You are now a developer!"</em> appears.</li>
+          <li>Enter your device PIN or pattern if prompted.</li>
+        </ol>
+
+        <!-- Instructional Visual: Developer Options -->
+        <div class="mt-4 rounded-2xl border border-neutral-300 dark:border-cyber-border overflow-hidden bg-neutral-950">
+          <img
+            src={`${basePath}/assets/images/enable-developer-options.png`.replace(/\/+/g, '/')}
+            alt="Instructional mockup showing Android Settings About Phone Build Number tapped 7 times to enable Developer Options"
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+          <div class="p-3 bg-neutral-900 border-t border-neutral-800 text-[11px] font-mono text-neutral-400 flex items-center justify-between">
+            <span>FIGURE 1: Android Settings Build Number Tap Confirmation</span>
+            <span class="text-cyber-lime font-bold">STEP 03</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Enable USB Debugging -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">04</span>
+        <span>Enable USB Debugging &amp; Trust RSA Key</span>
+      </h2>
+      <div class="space-y-3">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+          Once Developer Options is unlocked, enable the debugging bridge and authenticate your host workstation:
+        </p>
+        <ol class="list-decimal list-inside space-y-1.5 text-xs sm:text-sm text-neutral-800 dark:text-cyber-text">
+          <li>Go back to <strong>Settings &gt; System &gt; Developer options</strong> (or directly in Settings root on some skins).</li>
+          <li>Scroll down to the <strong>Debugging</strong> header.</li>
+          <li>Toggle <strong>USB debugging</strong> to the <strong>ON</strong> position.</li>
+          <li>When you plug in the USB cable to your computer, an <strong>"Allow USB debugging?"</strong> modal prompt will appear on your phone screen.</li>
+          <li>Check <strong>"Always allow from this computer"</strong> and tap <strong>Allow</strong>.</li>
+        </ol>
+
+        <!-- Instructional Visual: USB Debugging Modal -->
+        <div class="mt-4 rounded-2xl border border-neutral-300 dark:border-cyber-border overflow-hidden bg-neutral-950">
+          <img
+            src={`${basePath}/assets/images/enable-usb-debugging.png`.replace(/\/+/g, '/')}
+            alt="Android Developer Options USB Debugging toggle switch and computer RSA key fingerprint authorization modal"
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+          <div class="p-3 bg-neutral-900 border-t border-neutral-800 text-[11px] font-mono text-neutral-400 flex items-center justify-between">
+            <span>FIGURE 2: USB Debugging Toggle and RSA Keypair Authentication</span>
+            <span class="text-cyber-lime font-bold">STEP 04</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Connect Device -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">05</span>
+        <span>Connect Android Hardware to Workstation</span>
+      </h2>
+      <div class="space-y-3">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+          Connect your device using a high-quality data-capable USB-C cable (not charge-only). Set the USB configuration notification on your phone from "Charging only" to "File Transfer (MTP)".
+        </p>
+
+        <!-- Instructional Visual: Hardware Connection -->
+        <div class="mt-4 rounded-2xl border border-neutral-300 dark:border-cyber-border overflow-hidden bg-neutral-950">
+          <img
+            src={`${basePath}/assets/images/adb-device-connected.png`.replace(/\/+/g, '/')}
+            alt="Hardware connection architecture showing workstation host, USB-C data cable, and Android phone running adbd"
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+          <div class="p-3 bg-neutral-900 border-t border-neutral-800 text-[11px] font-mono text-neutral-400 flex items-center justify-between">
+            <span>FIGURE 3: Workstation Host to Android adbd Daemon Topology</span>
+            <span class="text-cyber-lime font-bold">STEP 05</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Verify Detection -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">06</span>
+        <span>Verify Device Detection (<code class="text-cyber-lime font-bold">adb devices</code>)</span>
+      </h2>
+      <div class="space-y-3">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted">
+          Open your terminal on your computer and query attached devices:
+        </p>
+        <div class="p-4 rounded-xl bg-neutral-950 dark:bg-cyber-black border border-neutral-800 dark:border-cyber-border flex items-center justify-between gap-4">
+          <code class="text-xs sm:text-sm font-mono text-cyber-lime font-medium">adb devices -l</code>
+          <CopyButton client:load text="adb devices -l" />
+        </div>
+
+        <!-- Instructional Visual: Terminal Output Verification -->
+        <div class="mt-4 rounded-2xl border border-neutral-300 dark:border-cyber-border overflow-hidden bg-neutral-950">
+          <img
+            src={`${basePath}/assets/images/adb-devices-output.png`.replace(/\/+/g, '/')}
+            alt="Terminal screenshot showing adb devices output states: device ready, unauthorized warning, and wireless TCP IP connection"
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+          <div class="p-3 bg-neutral-900 border-t border-neutral-800 text-[11px] font-mono text-neutral-400 flex items-center justify-between">
+            <span>FIGURE 4: Terminal Verification &amp; Device State Diagnostics</span>
+            <span class="text-cyber-lime font-bold">STEP 06</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Troubleshooting -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">07</span>
+        <span>Troubleshoot Device Detection Problems</span>
+      </h2>
+      <div class="space-y-3 text-sm text-neutral-700 dark:text-cyber-muted">
+        <div class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-2">
+          <h3 class="font-mono text-xs text-rose-500 dark:text-rose-400 font-bold uppercase">
+            Issue A: Status shows "unauthorized"
+          </h3>
+          <p class="text-xs leading-relaxed text-neutral-600 dark:text-cyber-muted">
+            Your computer's RSA key hasn't been approved yet. Unlock your phone's lock screen and tap "Always allow". If no prompt appears, run:
+          </p>
+          <div class="flex items-center justify-between gap-2 p-2 rounded bg-neutral-100 dark:bg-cyber-dark font-mono text-xs text-neutral-900 dark:text-cyber-lime">
+            <code>adb kill-server &amp;&amp; adb start-server</code>
+            <CopyButton client:load text="adb kill-server && adb start-server" showText={false} />
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-2">
+          <h3 class="font-mono text-xs text-amber-500 font-bold uppercase">
+            Issue B: "List of devices attached" is empty
+          </h3>
+          <ul class="list-disc list-inside space-y-1 text-xs leading-relaxed text-neutral-600 dark:text-cyber-muted">
+            <li>Ensure USB cable supports data transfer (some cheap cables are charging-only).</li>
+            <li>On Windows, install the OEM Google USB Driver via Device Manager.</li>
+            <li>On Linux, add the Android udev rule to <code class="font-mono text-neutral-900 dark:text-neutral-200">/etc/udev/rules.d/51-android.rules</code>.</li>
+            <li>Try another USB port directly on motherboard (avoid unpowered USB hubs).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Wireless ADB -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder font-mono">08</span>
+        <span>Wireless ADB Basics (Cable-Free Debugging)</span>
+      </h2>
+      <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-xs sm:text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+        <p>
+          Once initial USB pairing is complete, you can detach the cable and debug over your local Wi-Fi network:
+        </p>
+
+        <div class="space-y-3 font-mono text-xs">
+          <div class="p-3 rounded-lg bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border">
+            <span class="text-neutral-500 dark:text-neutral-400 block mb-1">Step 1: Set device to listen on port 5555</span>
+            <code class="text-neutral-900 dark:text-cyber-lime font-bold">adb tcpip 5555</code>
+          </div>
+
+          <div class="p-3 rounded-lg bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border">
+            <span class="text-neutral-500 dark:text-neutral-400 block mb-1">Step 2: Unplug USB cable and connect via device IP</span>
+            <code class="text-neutral-900 dark:text-cyber-lime font-bold">adb connect &lt;phone_ip_address&gt;:5555</code>
+          </div>
+        </div>
+
+        <p class="text-xs">
+          On <strong>Android 11+</strong>, you can also use native <em>Wireless Debugging &gt; Pair device with pairing code</em> and execute <code class="font-mono text-cyber-lime font-semibold">adb pair &lt;ip&gt;:&lt;port&gt; &lt;code&gt;</code> completely without any USB cable.
+        </p>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div class="pt-8 border-t border-neutral-200 dark:border-cyber-border flex items-center justify-between">
+      <a
+        href={`${basePath}/adb/`.replace(/\/+/g, '/')}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime transition-all"
+      >
+        <span>Browse ADB Commands</span>
+      </a>
+
+      <a
+        href={`${basePath}/learn/fastboot/`.replace(/\/+/g, '/')}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/15 transition-all shadow-sm"
+      >
+        <span>Next: Getting Started with Fastboot</span>
+        <ArrowRight className="w-3.5 h-3.5" />
+      </a>
+    </div>
+  </article>
+</BaseLayout>

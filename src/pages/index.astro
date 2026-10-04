@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { InteractiveExplorer } from '../components/InteractiveExplorer';
+import { adbCommands } from '../data/adb';
+import { fastbootCommands } from '../data/fastboot';
+import { Terminal, Zap, BookOpen, ArrowRight } from 'lucide-react';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title="Android Command Cheatsheet — ADB & Fastboot Reference"
+  description="Searchable reference for Android ADB & Fastboot commands, explained simply with syntax, flags, examples, and quick-copy support."
+>
+  <div class="space-y-10">
+    <!-- Hero Section -->
+    <section class="relative py-8 md:py-12 px-6 md:px-10 rounded-2xl border border-neutral-200 dark:border-cyber-border bg-white dark:bg-cyber-surface overflow-hidden shadow-sm">
+      <!-- Background Cyber Accent Grid -->
+      <div class="absolute inset-0 cyber-grid opacity-50 pointer-events-none" />
+
+      <div class="relative z-10 max-w-3xl space-y-4">
+        {/* Status Chip: "Last updated: October 2024" without version string */}
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-neutral-100 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border text-neutral-700 dark:text-cyber-muted">
+          <span class="w-2 h-2 rounded-full bg-cyber-lime inline-block" />
+          <span>Last updated: October 2024</span>
+          <span className="text-neutral-300 dark:text-cyber-border">•</span>
+          <span className="text-neutral-800 dark:text-cyber-lime font-semibold">96 Commands Indexed</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-mono font-bold tracking-tight text-neutral-950 dark:text-cyber-text">
+          Android Command <span class="text-neutral-950 dark:text-cyber-lime underline decoration-cyber-lime/50 underline-offset-8">Cheatsheet</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-neutral-600 dark:text-cyber-muted leading-relaxed">
+          ADB &amp; Fastboot commands, explained simply. Searchable reference with syntax, examples, options, risk classifications, and one-click copy.
+        </p>
+
+        <!-- Quick Jump Pillars (Pure Cybercore Neutral) -->
+        <div class="pt-4 flex flex-wrap items-center gap-3">
+          <a
+            href={`${basePath}/adb/`.replace(/\/+/g, '/')}
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-mono font-semibold border border-neutral-300 dark:border-cyber-border bg-neutral-100 hover:bg-neutral-200 dark:bg-cyber-dark hover:dark:bg-cyber-surfaceHover text-neutral-900 dark:text-cyber-text hover:dark:text-cyber-lime transition-all shadow-sm"
+          >
+            <Terminal className="w-4 h-4 text-cyber-lime" />
+            <span>ADB Reference ({adbCommands.length})</span>
+            <ArrowRight className="w-3.5 h-3.5 text-neutral-400 dark:text-cyber-dim" />
+          </a>
+
+          <a
+            href={`${basePath}/fastboot/`.replace(/\/+/g, '/')}
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-mono font-semibold border border-neutral-300 dark:border-cyber-border bg-neutral-100 hover:bg-neutral-200 dark:bg-cyber-dark hover:dark:bg-cyber-surfaceHover text-neutral-900 dark:text-cyber-text hover:dark:text-cyber-lime transition-all shadow-sm"
+          >
+            <Zap className="w-4 h-4 text-amber-500" />
+            <span>Fastboot Reference ({fastbootCommands.length})</span>
+            <ArrowRight className="w-3.5 h-3.5 text-neutral-400 dark:text-cyber-dim" />
+          </a>
+
+          <a
+            href={`${basePath}/learn/`.replace(/\/+/g, '/')}
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-mono font-medium border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface text-neutral-700 dark:text-cyber-muted hover:text-neutral-900 dark:hover:text-cyber-text hover:dark:bg-cyber-surfaceHover transition-all shadow-sm"
+          >
+            <BookOpen className="w-4 h-4 text-neutral-500 dark:text-cyber-muted" />
+            <span>Setup &amp; Troubleshooting Guide</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Command Explorer (Search, Filters, Favorites, Risk levels) -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg md:text-xl font-mono font-bold text-neutral-950 dark:text-cyber-text">
+            Command Library
+          </h2>
+          <p class="text-xs text-neutral-500 dark:text-cyber-muted mt-0.5 font-mono">
+            Filter by tool, category, risk level, or saved favorites.
+          </p>
+        </div>
+      </div>
+
+      <InteractiveExplorer client:load initialTool="all" basePath={basePath} />
+    </section>
+  </div>
+</BaseLayout>

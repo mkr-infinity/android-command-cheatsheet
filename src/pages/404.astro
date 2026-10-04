@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { NotFoundView } from '../components/NotFoundView';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title="404 — Command Not Found | Android Command Cheatsheet"
+  description="The requested ADB or Fastboot command route does not exist. Return to Android Command Cheatsheet home or report a missing command."
+>
+  <NotFoundView client:load basePath={basePath} />
+</BaseLayout>

@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { InteractiveExplorer } from '../../components/InteractiveExplorer';
+import { fastbootCommands } from '../../data/fastboot';
+import { Zap, BookOpen, ArrowRight, AlertTriangle } from 'lucide-react';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title="Fastboot Commands Cheatsheet — Android Bootloader Reference"
+  description="Comprehensive Fastboot command reference with syntax, examples, partition flashing, slot switching, bootloader unlocking, and factory restoration."
+>
+  <div class="space-y-8">
+    {/* Page Header */}
+    <div class="p-6 md:p-8 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200 dark:border-cyber-border/40">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 rounded-lg bg-amber-500/10 text-amber-500 border border-amber-500/20">
+              <Zap className="w-5 h-5" />
+            </span>
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-cyber-muted">
+              Tool Documentation
+            </span>
+          </div>
+
+          <h1 class="text-2xl md:text-3xl font-mono font-bold text-neutral-900 dark:text-cyber-text">
+            Fastboot Commands Reference
+          </h1>
+          <p class="text-sm text-neutral-600 dark:text-cyber-muted max-w-2xl leading-relaxed">
+            Fastboot is a diagnostic and engineering protocol that lets you communicate directly with the device bootloader over USB. It is used to flash custom recoveries, kernels, partitions, and unlock bootloader security.
+          </p>
+        </div>
+
+        {/* Quick Link to Learn Fastboot */}
+        <a
+          href={`${basePath}/learn/fastboot/`.replace(/\/+/g, '/')}
+          class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/15 text-amber-600 dark:text-amber-400 font-semibold transition-all shadow-sm"
+        >
+          <BookOpen className="w-4 h-4" />
+          <span>Getting Started with Fastboot</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
+      {/* Safety Notice Warning */}
+      <div class="my-4 p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 flex items-start gap-3 text-xs md:text-sm text-amber-800 dark:text-amber-300">
+        <AlertTriangle className="w-5 h-5 shrink-0 stroke-[2] mt-0.5 text-amber-500" />
+        <div class="leading-relaxed">
+          <strong class="font-mono uppercase tracking-wide block mb-0.5">CAUTION: LOW-LEVEL HARDWARE INTERFACE</strong>
+          Fastboot operates before the Android OS kernel starts. Flashing incompatible images or unlocking the bootloader will erase user data and can soft-brick or hard-brick your hardware. Double-check command parameters before execution.
+        </div>
+      </div>
+
+      {/* Metrics Banner */}
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 text-xs font-mono">
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">TOTAL COMMANDS</span>
+          <strong class="text-base text-neutral-900 dark:text-cyber-lime">{fastbootCommands.length} indexed</strong>
+        </div>
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">CATEGORIES</span>
+          <strong class="text-base text-neutral-900 dark:text-cyber-text">10 sections</strong>
+        </div>
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">ENVIRONMENT</span>
+          <strong class="text-base text-neutral-900 dark:text-cyber-text">Bootloader / FastbootD</strong>
+        </div>
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">COMMUNICATION</span>
+          <strong class="text-base text-amber-500 dark:text-amber-400">Direct USB Protocol</strong>
+        </div>
+      </div>
+    </div>
+
+    {/* Command Explorer dedicated to Fastboot */}
+    <InteractiveExplorer client:load initialTool="fastboot" basePath={basePath} />
+  </div>
+</BaseLayout>

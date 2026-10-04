@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import { AppShell } from '../components/AppShell';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  commandName?: string;
+}
+
+const {
+  title = 'Android Command Cheatsheet — ADB & Fastboot Reference',
+  description = 'Searchable ADB and Fastboot commands with clear explanations, examples, requirements, and quick-copy support.',
+  ogImage = '/assets/branding/og-image.png',
+  commandName,
+} = Astro.props;
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+const currentPath = Astro.url.pathname;
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://mkr-infinity.github.io';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const absoluteOgImage = new URL(`${basePath}${ogImage}`.replace(/\/+/g, '/'), siteUrl).toString();
+
+const faviconSvg = `${basePath}/assets/branding/favicon.svg`.replace(/\/+/g, '/');
+const faviconIco = `${basePath}/assets/branding/favicon.ico`.replace(/\/+/g, '/');
+---
+
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#07080B" />
+
+    <!-- SEO & Metadata -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:site_name" content="Android Command Cheatsheet" />
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href={faviconSvg} />
+    <link rel="shortcut icon" href={faviconIco} />
+    <link rel="alternate icon" href={faviconIco} />
+
+    <!-- Theme Initializer (prevents theme flash) -->
+    <script is:inline>
+      (function () {
+        try {
+          const saved = localStorage.getItem('acc_theme');
+          if (
+            saved === 'dark' ||
+            (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+            !saved
+          ) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-cyber-lightBg dark:bg-cyber-black text-cyber-lightText dark:text-cyber-text antialiased font-sans">
+    <AppShell
+      client:load
+      currentPath={currentPath}
+      basePath={basePath}
+      commandName={commandName}
+    >
+      <slot />
+    </AppShell>
+  </body>
+</html>

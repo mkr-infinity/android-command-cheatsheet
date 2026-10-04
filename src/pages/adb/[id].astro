@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CommandDetail } from '../../components/CommandDetail';
+import { adbCommands } from '../../data/adb';
+import type { CommandItem } from '../../data/types';
+
+export function getStaticPaths() {
+  return adbCommands.map((command) => ({
+    params: { id: command.id },
+    props: { command },
+  }));
+}
+
+interface Props {
+  command: CommandItem;
+}
+
+const { command } = Astro.props;
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title={`${command.command} — ADB Command Reference`}
+  description={`${command.title}. ${command.description}`}
+  commandName={command.command}
+>
+  <CommandDetail client:load command={command} basePath={basePath} />
+</BaseLayout>

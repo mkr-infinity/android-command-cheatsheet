@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { InteractiveExplorer } from '../../components/InteractiveExplorer';
+import { adbCommands } from '../../data/adb';
+import { Terminal, BookOpen, ArrowRight, ShieldCheck } from 'lucide-react';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title="ADB Commands Cheatsheet — Android Debug Bridge Reference"
+  description="Comprehensive ADB command reference with explanations, syntax, options, and examples for app management, debugging, shell, file transfers, and system control."
+>
+  <div class="space-y-8">
+    {/* Page Header */}
+    <div class="p-6 md:p-8 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200 dark:border-cyber-border/40">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 rounded-lg bg-cyber-limeDim text-cyber-lime border border-cyber-limeBorder">
+              <Terminal className="w-5 h-5 text-neutral-900 dark:text-cyber-lime" />
+            </span>
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-cyber-muted">
+              Tool Documentation
+            </span>
+          </div>
+
+          <h1 class="text-2xl md:text-3xl font-mono font-bold text-neutral-900 dark:text-cyber-text">
+            ADB Commands Reference
+          </h1>
+          <p class="text-sm text-neutral-600 dark:text-cyber-muted max-w-2xl leading-relaxed">
+            Android Debug Bridge (adb) is a versatile command-line tool that lets you communicate with a device. The adb command facilitates a variety of device actions, such as installing and debugging apps.
+          </p>
+        </div>
+
+        {/* Quick Link to Learn ADB */}
+        <a
+          href={`${basePath}/learn/adb/`.replace(/\/+/g, '/')}
+          class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono border border-neutral-300 dark:border-cyber-border bg-neutral-100 hover:bg-neutral-200 dark:bg-cyber-dark hover:dark:bg-cyber-surface text-neutral-900 dark:text-cyber-text hover:text-cyber-lime dark:hover:text-cyber-lime font-semibold transition-all shadow-sm"
+        >
+          <BookOpen className="w-4 h-4 text-cyber-lime" />
+          <span>Getting Started with ADB</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
+      {/* Metrics Banner */}
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 text-xs font-mono">
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">TOTAL COMMANDS</span>
+          <strong class="text-base text-neutral-900 dark:text-cyber-lime">{adbCommands.length} indexed</strong>
+        </div>
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">CATEGORIES</span>
+          <strong class="text-base text-neutral-900 dark:text-cyber-text">12 sections</strong>
+        </div>
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">PORT (DEFAULT)</span>
+          <strong class="text-base text-neutral-900 dark:text-cyber-text">TCP 5037</strong>
+        </div>
+        <div>
+          <span class="text-neutral-500 dark:text-cyber-dim block">RUNTIME PROTOCOL</span>
+          <strong class="text-base text-cyber-lime dark:text-cyber-lime">USB &amp; TCP/IP</strong>
+        </div>
+      </div>
+    </div>
+
+    {/* Command Explorer dedicated to ADB */}
+    <InteractiveExplorer client:load initialTool="adb" basePath={basePath} />
+  </div>
+</BaseLayout>

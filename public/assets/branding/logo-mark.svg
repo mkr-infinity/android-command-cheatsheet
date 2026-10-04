@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Cybercore Frame (Pure Neutral) -->
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="#0A0A0A" stroke="#242424" stroke-width="2"/>
+  <rect x="5" y="5" width="54" height="54" rx="9" fill="#050505" stroke="#333333" stroke-width="1" stroke-dasharray="4 2"/>
+  
+  <!-- Antenna / Pin Node Accents (Stylized Hardware Connectors) -->
+  <line x1="20" y1="2" x2="20" y2="7" stroke="#E2F952" stroke-width="2" stroke-linecap="round"/>
+  <line x1="44" y1="2" x2="44" y2="7" stroke="#E2F952" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="20" cy="11" r="1.5" fill="#E2F952"/>
+  <circle cx="44" cy="11" r="1.5" fill="#E2F952"/>
+  
+  <!-- Terminal Prompt Chevron & Hardware Cross -->
+  <path d="M18 24L30 34L18 44" stroke="#E2F952" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M34 44H46" stroke="#FAFAFA" stroke-width="4.5" stroke-linecap="round"/>
+  
+  <!-- Micro Precision Indicators -->
+  <circle cx="50" cy="18" r="2" fill="#E2F952" opacity="0.9"/>
+  <circle cx="44" cy="18" r="1.5" fill="#737373"/>
+  <circle cx="38" cy="18" r="1.5" fill="#737373"/>
+  
+  <!-- Subtle Corner Grid Accent -->
+  <path d="M48 48L54 54" stroke="#E2F952" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+</svg>

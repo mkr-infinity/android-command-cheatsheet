@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Zap, AlertTriangle, AlertOctagon, ShieldCheck, ArrowRight, HardDrive, Cpu, Terminal } from 'lucide-react';
+import { CopyButton } from '../../components/CopyButton';
+
+const rawBase = import.meta.env.BASE_URL || '/';
+const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+---
+
+<BaseLayout
+  title="Getting Started with Fastboot — Android Bootloader Guide"
+  description="Master low-level Android bootloader protocol, entering fastboot mode, partition layouts, A/B slots, safe flashing procedures, and bootloader unlock/lock concepts."
+>
+  <article class="max-w-4xl mx-auto space-y-12">
+    <!-- Header -->
+    <div class="space-y-4 pb-8 border-b border-neutral-200 dark:border-cyber-border">
+      <div class="flex items-center gap-2">
+        <a
+          href={`${basePath}/learn/`.replace(/\/+/g, '/')}
+          class="text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:text-cyber-muted dark:hover:text-cyber-lime"
+        >
+          ← All Guides
+        </a>
+        <span class="text-neutral-400 dark:text-cyber-border">/</span>
+        <span class="text-xs font-mono text-amber-500 font-bold">Fastboot Fundamentals</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-mono font-bold text-neutral-900 dark:text-cyber-text">
+        Getting Started with Fastboot
+      </h1>
+      <p class="text-neutral-600 dark:text-cyber-muted text-sm sm:text-base leading-relaxed">
+        Fastboot communicates with your device when the Android operating system is not running. It allows you to modify flash memory partitions, flash custom recoveries, install factory firmware, and unlock bootloader security.
+      </p>
+    </div>
+
+    <!-- Section 1: What is Fastboot? -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">01</span>
+        <span>What is Fastboot?</span>
+      </h2>
+      <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+        <p>
+          Unlike ADB which requires the Android Linux kernel and user space to be booted, <strong>Fastboot executes in the device Bootloader (Primary Bootloader / ABOOT)</strong> before any kernel is loaded into memory.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div class="p-4 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border">
+            <strong class="font-mono text-xs text-cyber-lime block mb-1">ADB (Android Debug Bridge)</strong>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Runs inside Android OS. High-level commands (app install, logcat, shell, file sync, permission grants).</p>
+          </div>
+          <div class="p-4 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border">
+            <strong class="font-mono text-xs text-amber-500 block mb-1">Fastboot (Bootloader Protocol)</strong>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Runs at hardware firmware level. Low-level partition operations (erase, flash, unlock, format, unbrick).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Enter Fastboot Mode -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">02</span>
+        <span>Enter Fastboot / Bootloader Mode</span>
+      </h2>
+      <div class="space-y-4">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+          There are two ways to enter bootloader mode: via ADB command (when Android is booted) or via hardware button combinations during power on.
+        </p>
+
+        <div class="p-4 rounded-xl bg-neutral-950 dark:bg-cyber-black border border-neutral-800 dark:border-cyber-border flex items-center justify-between gap-4">
+          <div>
+            <span class="text-[11px] font-mono text-neutral-400 block mb-1">METHOD A: ADB SOFTWARE COMMAND</span>
+            <code class="text-xs sm:text-sm font-mono text-cyber-lime font-medium">adb reboot bootloader</code>
+          </div>
+          <CopyButton client:load text="adb reboot bootloader" />
+        </div>
+
+        <div class="p-5 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-3">
+          <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-text block uppercase tracking-wide">
+            METHOD B: HARDWARE BUTTON COMBINATIONS (FROM POWERED OFF STATE)
+          </strong>
+          <ul class="space-y-2 text-xs sm:text-sm text-neutral-700 dark:text-cyber-muted font-mono">
+            <li><strong>Google Pixel:</strong> Hold <span class="text-cyber-lime">Power + Volume Down</span> until fastboot screen appears.</li>
+            <li><strong>Xiaomi / Poco:</strong> Hold <span class="text-cyber-lime">Power + Volume Down</span> until FASTBOOT mascot appears.</li>
+            <li><strong>OnePlus:</strong> Hold <span class="text-cyber-lime">Power + Volume Up + Volume Down</span> simultaneously.</li>
+            <li><strong>Motorola:</strong> Hold <span class="text-cyber-lime">Power + Volume Down</span> for 3 seconds, then release Power.</li>
+            <li><strong>Samsung:</strong> Modern Samsung devices use Download Mode (<span class="text-cyber-lime">Vol Up + Vol Down</span> while inserting USB cable).</li>
+          </ul>
+        </div>
+
+        <!-- Instructional Visual: Fastboot Diagnostic Screen -->
+        <div class="mt-4 rounded-2xl border border-neutral-300 dark:border-cyber-border overflow-hidden bg-neutral-950">
+          <img
+            src={`${basePath}/assets/images/fastboot-mode.png`.replace(/\/+/g, '/')}
+            alt="Hardware mockup of Android Fastboot Mode screen displaying product name, serial number, secure boot status, and device state unlocked"
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+          <div class="p-3 bg-neutral-900 border-t border-neutral-800 text-[11px] font-mono text-neutral-400 flex items-center justify-between">
+            <span>FIGURE 5: Fastboot Mode Hardware Diagnostic Screen Reference</span>
+            <span class="text-cyber-lime font-bold">FASTBOOT MODE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Check Device Detection -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">03</span>
+        <span>Check Device Detection (<code class="text-cyber-lime font-bold">fastboot devices</code>)</span>
+      </h2>
+      <div class="space-y-3">
+        <p class="text-sm text-neutral-600 dark:text-cyber-muted">
+          Connect your device via USB while on the fastboot screen and run:
+        </p>
+        <div class="p-4 rounded-xl bg-neutral-950 dark:bg-cyber-black border border-neutral-800 dark:border-cyber-border flex items-center justify-between gap-4">
+          <code class="text-xs sm:text-sm font-mono text-cyber-lime font-medium">fastboot devices -l</code>
+          <CopyButton client:load text="fastboot devices -l" />
+        </div>
+        <p class="text-xs text-neutral-500 dark:text-cyber-muted">
+          If the output is completely blank, your computer lacks the low-level Android Bootloader interface driver. On Windows, update the device via Device Manager using the Google USB Driver (WinUSB).
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 4: Understand Partitions & A/B Slots -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">04</span>
+        <span>Understand Android Partitions &amp; A/B Slots</span>
+      </h2>
+      <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-xs sm:text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+        <p>
+          Android hardware storage is divided into isolated block partitions:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <span class="font-mono text-xs text-cyber-lime font-bold">boot / init_boot</span>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Contains the Linux kernel and ramdisk. Flashed when rooting with Magisk or KernelSU.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <span class="font-mono text-xs text-cyber-lime font-bold">vbmeta</span>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Verified Boot metadata hash tree. Ensures OS integrity; can be patched to disable verification.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <span class="font-mono text-xs text-cyber-lime font-bold">system / vendor / product</span>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">The Android OS core framework, proprietary drivers, and pre-installed OEM system apps.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border space-y-1">
+            <span class="font-mono text-xs text-cyber-lime font-bold">userdata</span>
+            <p class="text-xs text-neutral-600 dark:text-cyber-muted">Your personal accounts, apps, photos, and encrypted databases in /data.</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-neutral-100 dark:bg-cyber-dark border border-neutral-200 dark:border-cyber-border mt-2">
+          <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-text block mb-1">
+            A/B Seamless Updates System:
+          </strong>
+          <p class="text-xs text-neutral-600 dark:text-cyber-muted">
+            Modern devices have two duplicate slot sets: <code class="font-mono text-cyber-lime">_a</code> and <code class="font-mono text-cyber-lime">_b</code>. When an OTA is applied in background, it writes to the inactive slot. You can inspect your active slot with <code class="font-mono text-cyber-lime">fastboot getvar current-slot</code> and switch slots with <code class="font-mono text-cyber-lime">fastboot set_active other</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Unlocking & Locking Concepts -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">05</span>
+        <span>Bootloader Unlocking &amp; Locking Concepts</span>
+      </h2>
+      <div class="space-y-4">
+        <!-- Destructive Callout -->
+        <div class="p-5 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-rose-800 dark:text-rose-300 space-y-2">
+          <div class="flex items-center gap-2 font-mono font-bold text-xs uppercase tracking-wide">
+            <AlertOctagon className="w-5 h-5 stroke-[2.5]" />
+            <span>CRITICAL WARNING: FACTORY DATA RESET</span>
+          </div>
+          <p class="text-xs sm:text-sm leading-relaxed">
+            Executing <code class="font-mono font-bold">fastboot flashing unlock</code> triggers an immediate hardware crypto-wipe of the <code class="font-mono font-bold">userdata</code> partition. All accounts, photos, and files are permanently deleted. Back up critical files before proceeding!
+          </p>
+        </div>
+
+        <div class="space-y-2.5 font-mono text-xs">
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-surface border border-neutral-200 dark:border-cyber-border flex items-center justify-between">
+            <div>
+              <span class="text-neutral-500 dark:text-neutral-400 block mb-1 font-sans">Modern Unlock Command (Android 6.0+)</span>
+              <code class="text-neutral-900 dark:text-cyber-lime font-bold">fastboot flashing unlock</code>
+            </div>
+            <CopyButton client:load text="fastboot flashing unlock" />
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-neutral-50 dark:bg-cyber-surface border border-neutral-200 dark:border-cyber-border flex items-center justify-between">
+            <div>
+              <span class="text-neutral-500 dark:text-neutral-400 block mb-1 font-sans">Check Unlock Status</span>
+              <code class="text-neutral-900 dark:text-cyber-lime font-bold">fastboot getvar unlocked</code>
+            </div>
+            <CopyButton client:load text="fastboot getvar unlocked" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Flashing Basics & Booting -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-mono font-bold text-neutral-900 dark:text-cyber-text flex items-center gap-2.5">
+        <span class="px-2 py-0.5 rounded text-xs bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono">06</span>
+        <span>Flashing Basics &amp; Live Booting</span>
+      </h2>
+      <div class="p-6 rounded-2xl border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface space-y-4 text-xs sm:text-sm text-neutral-600 dark:text-cyber-muted leading-relaxed">
+        <div>
+          <strong class="font-mono text-xs text-neutral-900 dark:text-cyber-text block mb-1">
+            "boot" vs "flash" — Test before you write:
+          </strong>
+          <p>
+            You can test a kernel or recovery image in RAM without writing to flash storage using <code class="font-mono text-cyber-lime">fastboot boot &lt;image.img&gt;</code>. If anything goes wrong, a simple power cycle restores your original state unharmed.
+          </p>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <div class="flex items-center justify-between p-3 rounded-lg bg-neutral-50 dark:bg-cyber-dark font-mono text-xs">
+            <span class="text-neutral-900 dark:text-cyber-lime">fastboot boot twrp-3.7.0.img</span>
+            <CopyButton client:load text="fastboot boot twrp-3.7.0.img" showText={false} />
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-neutral-50 dark:bg-cyber-dark font-mono text-xs">
+            <span class="text-neutral-900 dark:text-cyber-lime">fastboot flash boot magisk_patched.img</span>
+            <CopyButton client:load text="fastboot flash boot magisk_patched.img" showText={false} />
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-neutral-50 dark:bg-cyber-dark font-mono text-xs">
+            <span class="text-neutral-900 dark:text-cyber-lime">fastboot reboot</span>
+            <CopyButton client:load text="fastboot reboot" showText={false} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div class="pt-8 border-t border-neutral-200 dark:border-cyber-border flex items-center justify-between">
+      <a
+        href={`${basePath}/learn/adb/`.replace(/\/+/g, '/')}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono border border-neutral-300 dark:border-cyber-border bg-white dark:bg-cyber-surface text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime transition-all"
+      >
+        <span>← Previous: ADB Guide</span>
+      </a>
+
+      <a
+        href={`${basePath}/fastboot/`.replace(/\/+/g, '/')}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/15 transition-all shadow-sm"
+      >
+        <span>Browse Fastboot Commands</span>
+        <ArrowRight className="w-3.5 h-3.5" />
+      </a>
+    </div>
+  </article>
+</BaseLayout>
