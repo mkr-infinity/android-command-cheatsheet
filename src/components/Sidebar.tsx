@@ -453,7 +453,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         style={{
           width: isOpen ? `${width}px` : '0px',
         }}
-        className={`hidden md:flex flex-col border-r border-neutral-200 dark:border-neutral-800 shrink-0 sticky top-16 h-[calc(100vh-4rem)] select-none transition-[width] duration-200 ease-in-out ${
+        className={`hidden md:flex flex-col border-r border-neutral-200 dark:border-neutral-800 shrink-0 sticky top-0 h-screen select-none transition-[width] duration-200 ease-in-out ${
           isOpen ? 'opacity-100' : 'opacity-0 overflow-hidden pointer-events-none border-r-0'
         }`}
       >

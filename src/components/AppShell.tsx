@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { SupportBar } from './SupportBar';
 import { SearchModal } from './SearchModal';
 import { CursorInteractiveBackground } from './CursorInteractiveBackground';
 import { MagneticGridBackground } from './MagneticGridBackground';
@@ -94,14 +93,6 @@ export const AppShell: React.FC<AppShellProps> = ({
       {/* Lightweight Cursor Interactive Spotlight Background */}
       <CursorInteractiveBackground />
 
-      {/* Sticky Global Header across top */}
-      <Header
-        basePath={basePath}
-        isSidebarOpen={isSidebarOpen}
-        onToggleSidebar={handleToggleSidebar}
-        onOpenSearch={() => setIsSearchOpen(true)}
-      />
-
       {/* In-Flow Body Container: Desktop Resizable Sidebar + Content Area */}
       <div className="flex-1 flex w-full relative z-10">
         <Sidebar
@@ -119,8 +110,15 @@ export const AppShell: React.FC<AppShellProps> = ({
           onWidthChange={handleWidthChange}
         />
 
-        {/* Main Content Area: Content automatically reflows when sidebar expands/shrinks */}
+        {/* Main Content Area: Header floats cleanly above this column with zero sidebar overlap */}
         <div className="flex-1 flex flex-col min-w-0 transition-all duration-200">
+          <Header
+            basePath={basePath}
+            isSidebarOpen={isSidebarOpen}
+            onToggleSidebar={handleToggleSidebar}
+            onOpenSearch={() => setIsSearchOpen(true)}
+          />
+
           <main className="flex-1 px-4 sm:px-6 md:px-8 py-6 md:py-8 max-w-7xl w-full mx-auto">
             {children}
           </main>
@@ -128,9 +126,6 @@ export const AppShell: React.FC<AppShellProps> = ({
           <Footer basePath={basePath} />
         </div>
       </div>
-
-      {/* Floating Sponsor / Feedback Bar */}
-      <SupportBar command={commandName} />
 
       {/* Search Modal */}
       <SearchModal
