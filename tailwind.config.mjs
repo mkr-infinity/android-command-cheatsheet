@@ -34,8 +34,9 @@ export default {
         },
       },
       fontFamily: {
-        mono: ['JetBrains Mono', 'Fira Code', 'SF Mono', 'ui-monospace', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'SF Mono', 'ui-monospace', 'Menlo', 'monospace'],
+        display: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
       },
       boxShadow: {
         cyber: '0 0 16px -2px rgba(226, 249, 82, 0.14)',

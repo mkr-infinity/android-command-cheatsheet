@@ -5,6 +5,7 @@ import { Footer } from './Footer';
 import { SupportBar } from './SupportBar';
 import { SearchModal } from './SearchModal';
 import { CursorInteractiveBackground } from './CursorInteractiveBackground';
+import { MagneticGridBackground } from './MagneticGridBackground';
 
 interface AppShellProps {
   currentPath?: string;
@@ -87,6 +88,9 @@ export const AppShell: React.FC<AppShellProps> = ({
 
   return (
     <div className="min-h-screen flex flex-col bg-cyber-lightBg dark:bg-cyber-black text-cyber-lightText dark:text-cyber-text transition-colors duration-200 relative selection:bg-cyber-lime selection:text-black">
+      {/* Interactive Magnetic Repulsion Background Grid */}
+      <MagneticGridBackground />
+
       {/* Lightweight Cursor Interactive Spotlight Background */}
       <CursorInteractiveBackground />
 

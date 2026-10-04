@@ -15,6 +15,7 @@ import {
   ExternalLink,
   Unlock,
   Layers,
+  BookOpen,
 } from 'lucide-react';
 import type { CommandItem } from '../data/types';
 import { CopyButton } from './CopyButton';
@@ -22,6 +23,7 @@ import { RiskBadge } from './RiskBadge';
 import { isFavorite, toggleFavorite, addRecentHistory } from '../utils/storage';
 import { createFeatureRequestUrl, createReportIssueUrl } from '../utils/github';
 import { getCommandById } from '../data';
+import { extractSyntaxTokens } from '../utils/tokenDictionary';
 
 interface CommandDetailProps {
   command: CommandItem;
@@ -84,6 +86,8 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
       command.category.toLowerCase().includes('flash') ||
       command.category.toLowerCase().includes('partition') ||
       command.tags.some((t) => t.includes('gsi') || t.includes('treble') || t.includes('system')));
+
+  const syntaxTokens = extractSyntaxTokens(command.syntax, command.command);
 
   return (
     <article className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
@@ -221,6 +225,61 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
           </div>
         </div>
       </section>
+
+      {/* Parameter Vocabulary & Placeholder Explanation Guide */}
+      {syntaxTokens.length > 0 && (
+        <section className="space-y-3">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-bold">
+            <BookOpen className="w-4 h-4 text-cyber-lime" />
+            <span>Parameters &amp; Placeholders Breakdown</span>
+          </div>
+
+          <div className="clay-card p-5 sm:p-6 space-y-4">
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 font-sans leading-relaxed">
+              This command syntax includes specific placeholder tokens. Below is an explanation of what each word represents and concrete real-world values to replace it with:
+            </p>
+
+            <div className="divide-y divide-neutral-200/80 dark:divide-neutral-800/80">
+              {syntaxTokens.map((item, idx) => (
+                <div key={idx} className="py-3.5 first:pt-0 last:pb-0 space-y-2">
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <code className="px-2 py-0.5 rounded-md text-xs font-mono font-bold bg-[#0f1115] text-cyber-lime border border-neutral-800 shadow-sm">
+                      {item.token}
+                    </code>
+                    <span className="font-mono text-xs font-bold text-neutral-900 dark:text-cyber-text">
+                      {item.name}
+                    </span>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 font-sans leading-relaxed">
+                    {item.description}
+                  </p>
+
+                  <div className="p-3 rounded-xl bg-neutral-100/80 dark:bg-[#151518] border border-neutral-200 dark:border-neutral-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
+                    <div>
+                      <span className="text-neutral-500 dark:text-neutral-400 mr-2 font-sans font-medium">Real-world value:</span>
+                      <strong className="text-neutral-950 dark:text-cyber-lime font-bold">{item.example}</strong>
+                    </div>
+                    {item.usageExample && (
+                      <div className="text-[11px] text-neutral-600 dark:text-neutral-400 truncate">
+                        <span className="font-sans">Command syntax: </span>
+                        <code className="text-neutral-900 dark:text-neutral-200 font-semibold">{item.usageExample}</code>
+                      </div>
+                    )}
+                  </div>
+
+                  {item.tip && (
+                    <div className="text-[11px] text-amber-700 dark:text-amber-400 font-sans italic flex items-center gap-1.5 pt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                      <span>{item.tip}</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Examples Block */}
       {command.examples && command.examples.length > 0 && (

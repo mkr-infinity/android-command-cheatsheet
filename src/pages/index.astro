@@ -1,86 +1,296 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { InteractiveExplorer } from '../components/InteractiveExplorer';
+import { AliveTitle } from '../components/AliveTitle';
+import { CopyButton } from '../components/CopyButton';
 import { adbCommands } from '../data/adb';
 import { fastbootCommands } from '../data/fastboot';
-import { Terminal, Zap, BookOpen, ArrowRight } from 'lucide-react';
+import {
+  Terminal,
+  Zap,
+  BookOpen,
+  ArrowRight,
+  ShieldCheck,
+  Cpu,
+  Search,
+  Unlock,
+  Layers,
+  ExternalLink,
+  ChevronRight,
+  Sparkles,
+} from 'lucide-react';
+import { CoffeeIcon } from '../components/icons/BrandIcons';
 
 const rawBase = import.meta.env.BASE_URL || '/';
 const basePath = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+
+// Curated essential commands for instant quick copy
+const quickAdb = [
+  { cmd: 'adb devices -l', desc: 'List connected targets with detail' },
+  { cmd: 'adb install -r app.apk', desc: 'Reinstall app keeping data' },
+  { cmd: 'adb logcat -v time *:E', desc: 'Stream runtime error logs' },
+  { cmd: 'adb tcpip 5555', desc: 'Enable wireless ADB over Wi-Fi' },
+];
+
+const quickFastboot = [
+  { cmd: 'fastboot devices', desc: 'Verify USB bootloader handshake' },
+  { cmd: 'fastboot reboot bootloader', desc: 'Reboot back into bootloader' },
+  { cmd: 'fastboot flashing unlock', desc: 'Unlock OEM bootloader security' },
+  { cmd: 'fastboot getvar all', desc: 'Dump all hardware bootloader variables' },
+];
 ---
 
 <BaseLayout
   title="Android Command Cheatsheet — ADB & Fastboot Reference"
   description="Searchable reference for Android ADB & Fastboot commands, explained simply with syntax, flags, examples, and quick-copy support."
 >
-  <div class="space-y-10">
-    <!-- Hero Section with Claymorphic Elevation -->
-    <section class="clay-card relative py-8 md:py-12 px-6 md:px-10 overflow-hidden">
-      <!-- Background Cyber Accent Grid -->
-      <div class="absolute inset-0 cyber-grid opacity-50 pointer-events-none" />
+  <div class="space-y-8 max-w-5xl mx-auto">
+    <!-- Hero Section with Claymorphic Elevation & Alive Font-Shifting Title -->
+    <section class="clay-card relative py-8 sm:py-12 px-6 sm:px-10 overflow-hidden">
+      <!-- Ambient decorative glow -->
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-cyber-lime/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div class="relative z-10 max-w-3xl space-y-4">
-        {/* Status Chip: "Last updated: October 2024" without version string */}
+      <div class="relative z-10 space-y-5">
+        {/* Status Pill */}
         <div class="clay-pill text-xs text-neutral-700 dark:text-cyber-muted">
-          <span class="w-2 h-2 rounded-full bg-cyber-lime inline-block shadow-[0_0_8px_#E2F952]" />
+          <span class="w-2 h-2 rounded-full bg-cyber-lime inline-block shadow-[0_0_8px_rgb(var(--accent-lime-rgb))]" />
           <span>Last updated: 4th October 2026</span>
-          <span className="text-neutral-300 dark:text-neutral-700">•</span>
-          <span className="text-neutral-900 dark:text-cyber-lime font-bold">96 Commands Indexed</span>
+          <span class="text-neutral-300 dark:text-neutral-700">•</span>
+          <span class="text-neutral-900 dark:text-cyber-lime font-bold">96 Commands Indexed</span>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-mono font-bold tracking-tight text-neutral-950 dark:text-cyber-text">
-          Android Command <span class="text-neutral-950 dark:text-cyber-lime underline decoration-cyber-lime/50 underline-offset-8">Cheatsheet</span>
-        </h1>
+        {/* Dynamic Alive Title */}
+        <AliveTitle client:load />
 
-        <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-sans">
-          ADB &amp; Fastboot commands, explained simply. Searchable reference with syntax, examples, options, risk classifications, and one-click copy.
+        <p class="text-sm sm:text-base md:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-2xl font-sans font-medium">
+          A high-performance technical reference for Android ADB and Fastboot commands. Clear syntax, parameter dictionaries, warning ratings, and instant one-click copy.
         </p>
 
-        <!-- Quick Jump Pillars (Claymorphic Buttons) -->
-        <div class="pt-4 flex flex-wrap items-center gap-3">
+        <!-- Quick Jump Pillars -->
+        <div class="pt-3 flex flex-wrap items-center gap-3">
           <a
             href={`${basePath}/adb/`.replace(/\/+/g, '/')}
-            class="clay-button inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm text-neutral-900 dark:text-cyber-text hover:dark:text-cyber-lime font-semibold"
+            class="clay-button inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-cyber-text hover:text-cyber-lime font-bold group"
           >
-            <Terminal className="w-4 h-4 text-cyber-lime" />
-            <span>ADB Reference ({adbCommands.length})</span>
-            <ArrowRight className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" />
+            <Terminal className="w-4 h-4 text-cyber-lime group-hover:scale-110 transition-transform" />
+            <span>ADB Commands ({adbCommands.length})</span>
+            <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
           </a>
 
           <a
             href={`${basePath}/fastboot/`.replace(/\/+/g, '/')}
-            class="clay-button inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm text-neutral-900 dark:text-cyber-text hover:dark:text-cyber-lime font-semibold"
+            class="clay-button inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-cyber-text hover:text-amber-700 dark:hover:text-amber-400 font-bold group"
           >
-            <Zap className="w-4 h-4 text-amber-700 dark:text-amber-400" />
-            <span>Fastboot Reference ({fastbootCommands.length})</span>
-            <ArrowRight className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" />
+            <Zap className="w-4 h-4 text-amber-700 dark:text-amber-400 group-hover:scale-110 transition-transform" />
+            <span>Fastboot Commands ({fastbootCommands.length})</span>
+            <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover:translate-x-0.5 transition-transform" />
           </a>
 
           <a
             href={`${basePath}/learn/`.replace(/\/+/g, '/')}
-            class="clay-button inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-text font-medium"
+            class="clay-button inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-text font-medium"
           >
             <BookOpen className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
             <span>Setup &amp; Guides</span>
+          </a>
+
+          <a
+            href="https://buymeacoffee.com/mkr_infinity"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-[#FFDD00] text-black border-2 border-neutral-950 shadow-[0_3px_0_#000] hover:bg-[#FACC15] active:translate-y-0.5 active:shadow-none transition-all select-none"
+          >
+            <CoffeeIcon className="w-3.5 h-3.5 text-black shrink-0" />
+            <span>Sponsor</span>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Command Explorer (Search, Filters, Favorites, Risk levels) -->
-    <section class="space-y-4">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="text-lg md:text-xl font-mono font-bold text-neutral-950 dark:text-cyber-text">
-            Command Library
-          </h2>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 font-mono">
-            Filter by tool, category, risk level, or saved favorites.
+    <!-- Dual Tool Engine Quick Cockpit Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <!-- ADB Cockpit Card -->
+      <div class="clay-card p-6 sm:p-7 flex flex-col justify-between space-y-5">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="p-2 rounded-xl bg-cyber-lime/10 text-cyber-lime border border-cyber-lime/30 shadow-sm">
+                <Terminal className="w-5 h-5" />
+              </span>
+              <div>
+                <h2 class="font-mono text-lg font-bold text-neutral-950 dark:text-cyber-text">
+                  ADB Command Engine
+                </h2>
+                <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+                  Android Debug Bridge • Daemon Port 5037
+                </span>
+              </div>
+            </div>
+            <span class="clay-pill text-xs font-mono font-bold text-cyber-lime">
+              {adbCommands.length} CMDS
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-sans">
+            Client-server architecture communicating with user-space Android OS for package deployment, shell scripts, logs, and port forwarding.
           </p>
+
+          <!-- Quick essential commands -->
+          <div class="space-y-2 pt-1 font-mono text-xs">
+            <span class="text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 tracking-wider block">
+              Popular Commands
+            </span>
+            {quickAdb.map((item) => (
+              <div class="p-2.5 rounded-xl bg-neutral-100/80 dark:bg-[#151518] border border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3">
+                <div class="truncate">
+                  <code class="text-neutral-950 dark:text-cyber-lime font-bold block truncate">
+                    {item.cmd}
+                  </code>
+                  <span class="text-[11px] text-neutral-500 dark:text-neutral-400 font-sans block truncate">
+                    {item.desc}
+                  </span>
+                </div>
+                <CopyButton client:load text={item.cmd} showText={false} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80">
+          <a
+            href={`${basePath}/adb/`.replace(/\/+/g, '/')}
+            class="clay-button-primary w-full py-2.5 px-4 text-xs flex items-center justify-center gap-2 group"
+          >
+            <span>Browse Full ADB Reference ({adbCommands.length} Commands)</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
       </div>
 
-      <InteractiveExplorer client:load initialTool="all" basePath={basePath} />
+      <!-- Fastboot Cockpit Card -->
+      <div class="clay-card p-6 sm:p-7 flex flex-col justify-between space-y-5">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="p-2 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30 shadow-sm">
+                <Zap className="w-5 h-5" />
+              </span>
+              <div>
+                <h2 class="font-mono text-lg font-bold text-neutral-950 dark:text-cyber-text">
+                  Fastboot Engine
+                </h2>
+                <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+                  Bootloader Protocol • Direct USB Handshake
+                </span>
+              </div>
+            </div>
+            <span class="clay-pill text-xs font-mono font-bold text-amber-700 dark:text-amber-400">
+              {fastbootCommands.length} CMDS
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-sans">
+            Diagnostic protocol communicating before OS boot to flash block partitions, unlock OEM security, inspect variables, and toggle A/B slots.
+          </p>
+
+          <!-- Quick essential commands -->
+          <div class="space-y-2 pt-1 font-mono text-xs">
+            <span class="text-[10px] uppercase font-bold text-neutral-400 dark:text-neutral-500 tracking-wider block">
+              Popular Commands
+            </span>
+            {quickFastboot.map((item) => (
+              <div class="p-2.5 rounded-xl bg-neutral-100/80 dark:bg-[#151518] border border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-3">
+                <div class="truncate">
+                  <code class="text-neutral-950 dark:text-amber-700 dark:text-amber-400 font-bold block truncate">
+                    {item.cmd}
+                  </code>
+                  <span class="text-[11px] text-neutral-500 dark:text-neutral-400 font-sans block truncate">
+                    {item.desc}
+                  </span>
+                </div>
+                <CopyButton client:load text={item.cmd} showText={false} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-neutral-200/80 dark:border-neutral-800/80">
+          <a
+            href={`${basePath}/fastboot/`.replace(/\/+/g, '/')}
+            class="clay-button-primary w-full py-2.5 px-4 text-xs flex items-center justify-center gap-2 group"
+          >
+            <span>Browse Full Fastboot Reference ({fastbootCommands.length} Commands)</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official Companion Guides Showcase Banner -->
+    <section class="clay-card p-6 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+            <Sparkles className="w-4 h-4 text-cyber-lime" />
+            <span>Official Companion Handbooks by @mkr-infinity</span>
+          </div>
+          <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 font-sans">
+            Need device-specific OEM unlock guides or Project Treble GSI flashing tutorials?
+          </p>
+        </div>
+        <a
+          href={`${basePath}/about/`.replace(/\/+/g, '/')}
+          class="text-xs font-mono font-semibold text-neutral-700 dark:text-cyber-muted hover:text-cyber-lime inline-flex items-center gap-1"
+        >
+          <span>About Creator</span>
+          <ChevronRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+        <a
+          href="https://github.com/mkr-infinity/Guide-to-unlock-Bootloader"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 transition-all flex items-center justify-between gap-3 group"
+        >
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-amber-500/10 text-amber-700 dark:text-amber-400">
+              <Unlock className="w-4 h-4" />
+            </span>
+            <div>
+              <span class="text-xs font-mono font-bold text-neutral-950 dark:text-cyber-text block group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
+                Guide to Unlock Bootloader
+              </span>
+              <span class="text-[11px] text-neutral-500 dark:text-neutral-400 font-sans">
+                Xiaomi, Pixel, OnePlus, Motorola OEM guides
+              </span>
+            </div>
+          </div>
+          <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
+        </a>
+
+        <a
+          href="https://github.com/mkr-infinity/Guide-for-flashing-GSI-to-any-device"
+          target="_blank"
+          rel="noreferrer"
+          class="p-4 rounded-xl border border-cyber-lime/40 bg-cyber-lime/5 hover:bg-cyber-lime/10 transition-all flex items-center justify-between gap-3 group"
+        >
+          <div class="flex items-center gap-3">
+            <span class="p-2 rounded-lg bg-cyber-lime/10 text-cyber-lime">
+              <Layers className="w-4 h-4" />
+            </span>
+            <div>
+              <span class="text-xs font-mono font-bold text-neutral-950 dark:text-cyber-text block group-hover:text-cyber-lime transition-colors">
+                Guide for Flashing GSI to Any Device
+              </span>
+              <span class="text-[11px] text-neutral-500 dark:text-neutral-400 font-sans">
+                Project Treble, dynamic partitions &amp; fastbootd
+              </span>
+            </div>
+          </div>
+          <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
+        </a>
+      </div>
     </section>
   </div>
 </BaseLayout>

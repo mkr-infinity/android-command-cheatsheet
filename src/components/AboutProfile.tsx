@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Code2,
   Sparkles,
-  Users,
-  GitBranch,
   ExternalLink,
   ShieldCheck,
   Zap,
@@ -129,26 +127,26 @@ export const AboutProfile: React.FC = () => {
               {profile.bio}
             </p>
 
-            {/* GitHub Live Stats Counter Chips */}
-            <div className="flex items-center justify-center sm:justify-start gap-2.5 flex-wrap pt-2">
-              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
-                <GitBranch className="w-3.5 h-3.5 text-cyber-lime" />
-                <span><strong>{profile.public_repos}</strong> Repos</span>
-              </div>
+            {/* Creator Quote */}
+            <div className="p-3.5 rounded-xl bg-neutral-100/80 dark:bg-[#141416]/80 border border-neutral-200/90 dark:border-neutral-800 text-xs font-sans italic text-neutral-700 dark:text-neutral-300 border-l-4 border-l-cyber-lime">
+              &ldquo;Building transparent, zero-bloat developer tools and universal Android firmware guides that empower users and developers worldwide.&rdquo;
+            </div>
 
-              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
-                <Users className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
-                <span><strong>{profile.followers}</strong> Followers</span>
-              </div>
-
-              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
-                <Cpu className="w-3.5 h-3.5 text-cyber-lime" />
-                <span>Android Systems</span>
-              </div>
-
-              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-300">
+            {/* Dynamic Open Source & Architecture Badges */}
+            <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap pt-1">
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-200">
                 <Sparkles className="w-3.5 h-3.5 text-cyber-lime" />
-                <span>Open Source</span>
+                <span>Open Source Maintainer</span>
+              </div>
+
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-200">
+                <Cpu className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                <span>Android Firmware &amp; Kernel</span>
+              </div>
+
+              <div className="clay-pill text-xs font-mono text-neutral-800 dark:text-neutral-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-cyber-lime" />
+                <span>Zero Telemetry • Free Forever</span>
               </div>
             </div>
           </div>
