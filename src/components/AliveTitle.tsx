@@ -13,17 +13,17 @@ const FONT_STYLES = [
   },
   {
     name: 'Modern Technical Sans',
-    className: 'font-black text-neutral-900 dark:text-white uppercase tracking-wider',
+    className: 'font-black text-neutral-900 dark:text-white tracking-tight',
     style: { fontFamily: '"Plus Jakarta Sans", sans-serif' },
   },
   {
     name: 'Syne Futuristic Bold',
-    className: 'font-extrabold text-cyber-lime tracking-widest',
+    className: 'font-extrabold text-cyber-lime tracking-tight',
     style: { fontFamily: '"Syne", sans-serif' },
   },
   {
     name: 'Code Italics',
-    className: 'font-serif italic font-bold text-amber-500 dark:text-amber-300',
+    className: 'font-serif italic font-bold text-amber-500 dark:text-amber-300 tracking-tight',
     style: { fontFamily: '"Playfair Display", Georgia, serif' },
   },
 ];
@@ -72,15 +72,15 @@ export const AliveTitle: React.FC = () => {
   const currentFont = FONT_STYLES[fontIndex];
 
   return (
-    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold tracking-tight text-neutral-950 dark:text-cyber-text flex flex-wrap items-center gap-x-3 gap-y-1">
-      <span>Android Command</span>
-      <span className="relative inline-flex items-center">
+    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold tracking-tight text-neutral-950 dark:text-cyber-text flex flex-col sm:flex-row sm:items-baseline sm:flex-nowrap gap-x-3 gap-y-1 whitespace-nowrap">
+      <span className="shrink-0 whitespace-nowrap select-none">Android Command</span>
+      <span className="relative inline-flex items-baseline whitespace-nowrap overflow-visible">
         <span
-          className={`transition-all duration-200 underline decoration-cyber-lime/40 underline-offset-8 inline-block min-w-[200px] sm:min-w-[240px] md:min-w-[280px] ${currentFont.className}`}
+          className={`transition-all duration-200 underline decoration-cyber-lime/40 underline-offset-8 inline-flex items-baseline whitespace-nowrap min-w-[140px] sm:min-w-[200px] md:min-w-[240px] ${currentFont.className}`}
           style={currentFont.style}
         >
-          {displayText}
-          <span className="inline-block w-1.5 h-7 sm:h-9 md:h-11 bg-cyber-lime ml-1 -mb-1 animate-pulse" />
+          <span>{displayText}</span>
+          <span className="inline-block w-1.5 h-5 sm:h-7 md:h-9 bg-cyber-lime ml-1 self-center animate-pulse" />
         </span>
       </span>
     </h1>
