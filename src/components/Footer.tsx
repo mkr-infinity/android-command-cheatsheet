@@ -24,6 +24,16 @@ export const Footer: React.FC<FooterProps> = () => {
           <span className="text-neutral-500 dark:text-neutral-500">
             ADB &amp; Fastboot Reference
           </span>
+          <span className="text-neutral-300 dark:text-neutral-700 hidden sm:inline">•</span>
+          <a
+            href="https://t.me/mkr_infinity"
+            target="_blank"
+            rel="noreferrer"
+            className="text-neutral-800 dark:text-cyber-lime hover:underline font-bold inline-flex items-center gap-1"
+            title="Contact @mkr_infinity on Telegram"
+          >
+            <span>Having issue? Contact @mkr_infinity</span>
+          </a>
         </div>
 
         {/* Right Side: Last updated 4th October 2026 + Request Feature & Report Issue Buttons */}

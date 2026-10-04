@@ -3,6 +3,7 @@ import { ArrowRight, Bookmark, Terminal, Zap } from 'lucide-react';
 import type { CommandItem } from '../data/types';
 import { CopyButton } from './CopyButton';
 import { RiskBadge } from './RiskBadge';
+import { TelegramIcon } from './icons/BrandIcons';
 import { isFavorite, toggleFavorite } from '../utils/storage';
 
 interface CommandCardProps {
@@ -96,6 +97,22 @@ export const CommandCard: React.FC<CommandCardProps> = ({ command, basePath = ''
         >
           <span>Details</span>
           <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
+      {/* Trademark / Direct Support */}
+      <div className="mt-2.5 pt-2 border-t border-neutral-100 dark:border-neutral-800/60 flex items-center justify-between text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+        <span className="truncate">Having issue?</span>
+        <a
+          href="https://t.me/mkr_infinity"
+          target="_blank"
+          rel="noreferrer"
+          className="text-neutral-800 dark:text-cyber-lime hover:underline font-bold inline-flex items-center gap-1.5 shrink-0 group/tg"
+          title="Contact @mkr_infinity on Telegram"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <TelegramIcon className="w-3 h-3 text-[#229ED9] group-hover/tg:scale-110 transition-transform" />
+          <span>contact @mkr_infinity</span>
         </a>
       </div>
     </div>

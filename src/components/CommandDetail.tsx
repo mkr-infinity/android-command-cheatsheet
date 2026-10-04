@@ -20,6 +20,7 @@ import {
 import type { CommandItem } from '../data/types';
 import { CopyButton } from './CopyButton';
 import { RiskBadge } from './RiskBadge';
+import { TelegramIcon } from './icons/BrandIcons';
 import { isFavorite, toggleFavorite, addRecentHistory } from '../utils/storage';
 import { createFeatureRequestUrl, createReportIssueUrl } from '../utils/github';
 import { getCommandById } from '../data';
@@ -475,6 +476,35 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
             <span>Suggest Example</span>
           </a>
         </div>
+      </div>
+
+      {/* Trademark Direct Support Card */}
+      <div className="clay-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-l-4 border-l-cyber-lime">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-cyber-lime/10 text-cyber-lime border border-cyber-lime/30 shrink-0">
+            <TelegramIcon className="w-5 h-5 text-[#229ED9]" />
+          </div>
+          <div>
+            <div className="text-xs sm:text-sm font-mono font-bold text-neutral-950 dark:text-cyber-text">
+              Having issue? Contact <span className="text-cyber-lime">@mkr_infinity</span>
+            </div>
+            <p className="text-[11px] text-neutral-600 dark:text-neutral-400 font-sans mt-0.5">
+              Direct technical assistance, ROM flashing troubleshooting &amp; command inquiries.
+            </p>
+          </div>
+        </div>
+
+        <a
+          href="https://t.me/mkr_infinity"
+          target="_blank"
+          rel="noreferrer"
+          className="clay-button-primary px-4 py-2 text-xs font-mono font-bold inline-flex items-center gap-2 shrink-0 shadow-sm"
+          title="Contact @mkr_infinity on Telegram"
+        >
+          <TelegramIcon className="w-3.5 h-3.5 text-black shrink-0" />
+          <span>Contact @mkr_infinity</span>
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
       </div>
     </article>
   );
