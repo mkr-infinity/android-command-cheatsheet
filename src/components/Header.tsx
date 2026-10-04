@@ -1,7 +1,7 @@
 import React from 'react';
 import { PanelLeft, Search } from 'lucide-react';
 import { ThemeSwitcher } from './ThemeSwitcher';
-import { GithubIcon, CoffeeIcon } from './icons/BrandIcons';
+import { GithubIcon } from './icons/BrandIcons';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -92,18 +92,6 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Search className="w-4 h-4 text-cyber-lime" />
           </button>
-
-          {/* 3D Tactile Sponsor Button */}
-          <a
-            href="https://buymeacoffee.com/mkr_infinity"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-[#FFDD00] text-black border-2 border-neutral-950 shadow-[0_3px_0_#000] hover:bg-[#FACC15] active:translate-y-0.5 active:shadow-none transition-all select-none"
-            title="Sponsor project on Buy Me a Coffee"
-          >
-            <CoffeeIcon className="w-3.5 h-3.5 text-black shrink-0" />
-            <span>Sponsor</span>
-          </a>
 
           {/* GitHub Link */}
           <a
