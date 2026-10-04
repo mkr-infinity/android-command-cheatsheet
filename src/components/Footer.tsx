@@ -1,46 +1,58 @@
 import React from 'react';
-import { GithubIcon, CoffeeIcon } from './icons/BrandIcons';
+import { Sparkles, Bug } from 'lucide-react';
+import { createFeatureRequestUrl, createReportIssueUrl } from '../utils/github';
 
 interface FooterProps {
   basePath?: string;
 }
 
 export const Footer: React.FC<FooterProps> = () => {
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const featureUrl = createFeatureRequestUrl({ pageUrl: currentUrl });
+  const issueUrl = createReportIssueUrl({ pageUrl: currentUrl });
+
   return (
-    <footer className="border-t border-neutral-200 dark:border-cyber-border bg-white dark:bg-cyber-dark py-4 px-4 sm:px-8 text-xs font-mono text-neutral-500 dark:text-cyber-muted transition-colors">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-        <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
-          <span className="w-2 h-2 rounded-full bg-cyber-lime inline-block" />
-          <span className="font-semibold text-neutral-800 dark:text-cyber-text">
+    <footer className="border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-cyber-dark py-4 px-4 sm:px-8 text-xs font-mono text-neutral-600 dark:text-neutral-400 transition-colors">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        {/* Left Side: Brand name and status */}
+        <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start">
+          <span className="w-2 h-2 rounded-full bg-cyber-lime inline-block shadow-[0_0_8px_#E2F952]" />
+          <span className="font-bold text-neutral-900 dark:text-cyber-text">
             Android Command Cheatsheet
           </span>
-          <span className="text-neutral-300 dark:text-cyber-border hidden sm:inline">•</span>
-          <span className="text-neutral-500 dark:text-cyber-dim">
+          <span className="text-neutral-300 dark:text-neutral-700 hidden sm:inline">•</span>
+          <span className="text-neutral-500 dark:text-neutral-500">
             ADB &amp; Fastboot Reference
           </span>
         </div>
 
-        <div className="flex items-center gap-4 text-[11px] text-neutral-500 dark:text-cyber-muted">
-          <span>Last updated: October 2024</span>
-          <span className="text-neutral-300 dark:text-cyber-border">•</span>
+        {/* Right Side: Last updated 4th October 2026 + Request Feature & Report Issue Buttons */}
+        <div className="flex items-center gap-3 flex-wrap justify-center md:justify-end text-[11px]">
+          <span className="text-neutral-500 dark:text-neutral-400">
+            Last updated: 4th October 2026
+          </span>
+          <span className="text-neutral-300 dark:text-neutral-700 hidden sm:inline">•</span>
+
           <a
-            href="https://buymeacoffee.com/mkr_infinity"
+            href={featureUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime transition-colors"
+            className="clay-button inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-lime"
+            title="Request a feature on GitHub"
           >
-            <CoffeeIcon className="w-3.5 h-3.5 text-amber-500" />
-            <span>Sponsor</span>
+            <Sparkles className="w-3.5 h-3.5 text-cyber-lime shrink-0" />
+            <span>Request a Feature</span>
           </a>
-          <span className="text-neutral-300 dark:text-cyber-border">•</span>
+
           <a
-            href="https://github.com/mkr-infinity/android-command-cheatsheet"
+            href={issueUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime transition-colors"
+            className="clay-button inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-amber-400"
+            title="Report an issue on GitHub"
           >
-            <GithubIcon className="w-3.5 h-3.5" />
-            <span>GitHub</span>
+            <Bug className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+            <span>Report an Issue</span>
           </a>
         </div>
       </div>

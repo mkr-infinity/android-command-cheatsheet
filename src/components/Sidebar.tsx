@@ -8,7 +8,26 @@ import {
   ChevronDown,
   Search,
   PanelLeftClose,
-  GripVertical,
+  Cable,
+  Package,
+  FolderSync,
+  TerminalSquare,
+  Bug,
+  FileText,
+  Camera,
+  RotateCw,
+  ShieldCheck,
+  Network,
+  Sliders,
+  Flame,
+  Info,
+  Cpu,
+  Layers,
+  HardDriveDownload,
+  Trash2,
+  Unlock,
+  PlaySquare,
+  Sparkles,
 } from 'lucide-react';
 import { GithubIcon, CoffeeIcon } from './icons/BrandIcons';
 import { adbCategories, fastbootCategories } from '../data';
@@ -29,7 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   currentPath = '/',
   basePath = '',
   onOpenSearch,
-  width = 260,
+  width = 270,
   onWidthChange,
 }) => {
   const [adbOpen, setAdbOpen] = useState(true);
@@ -53,8 +72,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     if (!isResizing) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Clamp width between 200px and 420px
-      const newWidth = Math.min(Math.max(e.clientX, 200), 420);
+      const newWidth = Math.min(Math.max(e.clientX, 210), 440);
       onWidthChange?.(newWidth);
     };
 
@@ -71,10 +89,68 @@ export const Sidebar: React.FC<SidebarProps> = ({
     };
   }, [isResizing, onWidthChange]);
 
+  const getAdbCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'Device & Connection':
+        return <Cable className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'App Management':
+        return <Package className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Files & Storage':
+        return <FolderSync className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Shell':
+        return <TerminalSquare className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Debugging':
+        return <Bug className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Logs':
+        return <FileText className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Screenshots & Recording':
+        return <Camera className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Reboot & Recovery':
+        return <RotateCw className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Permissions':
+        return <ShieldCheck className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Network':
+        return <Network className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'System':
+        return <Sliders className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      case 'Advanced':
+        return <Flame className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+      default:
+        return <Terminal className="w-3.5 h-3.5 text-cyber-lime shrink-0" />;
+    }
+  };
+
+  const getFastbootCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'Device Detection':
+        return <Search className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Device Information':
+        return <Info className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Reboot':
+        return <RotateCw className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Bootloader':
+        return <Cpu className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Partitions':
+        return <Layers className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Flashing':
+        return <HardDriveDownload className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Erasing':
+        return <Trash2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Unlock/Lock':
+        return <Unlock className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Boot Images':
+        return <PlaySquare className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case 'Advanced':
+        return <Flame className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      default:
+        return <Zap className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+    }
+  };
+
   const navContent = (isMobile = false) => (
-    <div className="flex flex-col h-full bg-white dark:bg-cyber-dark">
+    <div className="flex flex-col h-full bg-white dark:bg-[#0c0c0e]">
       {/* Sidebar Header with Brand Logo */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-neutral-200 dark:border-cyber-border bg-neutral-50/60 dark:bg-cyber-surface/40 shrink-0">
+      <div className="flex items-center justify-between h-16 px-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-[#121214]/60 shrink-0">
         <a
           href={`${basePath}/`.replace(/\/+/g, '/')}
           className="flex items-center gap-2 overflow-hidden focus:outline-none"
@@ -93,7 +169,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           type="button"
           onClick={onClose}
           aria-label="Hide sidebar"
-          className="flex items-center justify-center w-8 h-8 rounded-lg border border-neutral-200 dark:border-cyber-border text-neutral-500 dark:text-cyber-muted hover:text-neutral-900 dark:hover:text-cyber-lime hover:bg-neutral-100 dark:hover:bg-cyber-surface transition-colors"
+          className="flex items-center justify-center w-8 h-8 rounded-xl border border-neutral-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-cyber-lime hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
           title="Hide sidebar"
         >
           <PanelLeftClose className="w-4 h-4" />
@@ -101,21 +177,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Quick Search Trigger */}
-      <div className="p-3 border-b border-neutral-100 dark:border-cyber-border/40 shrink-0">
+      <div className="p-3 border-b border-neutral-100 dark:border-neutral-800/60 shrink-0">
         <button
           type="button"
           onClick={() => {
             if (isMobile) onClose();
             onOpenSearch?.();
           }}
-          className="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-neutral-200 dark:border-cyber-border bg-neutral-50 hover:bg-neutral-100 dark:bg-cyber-surface dark:hover:bg-cyber-surfaceHover text-neutral-600 dark:text-cyber-muted text-xs font-mono transition-all group focus:outline-none focus:ring-1 focus:ring-cyber-lime"
+          className="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-xs font-mono transition-all group focus:outline-none focus:ring-1 focus:ring-cyber-lime"
           title="Search commands (Ctrl+K or /)"
         >
           <div className="flex items-center gap-2">
             <Search className="w-3.5 h-3.5 text-cyber-lime group-hover:scale-110 transition-transform" />
             <span>Search commands...</span>
           </div>
-          <kbd className="px-1.5 py-0.5 text-[10px] uppercase font-mono rounded bg-neutral-200 dark:bg-cyber-black text-neutral-600 dark:text-cyber-dim border border-neutral-300 dark:border-cyber-border">
+          <kbd className="px-1.5 py-0.5 text-[10px] uppercase font-mono rounded bg-neutral-200 dark:bg-black text-neutral-600 dark:text-neutral-400 border border-neutral-300 dark:border-neutral-800">
             /
           </kbd>
         </button>
@@ -123,7 +199,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Navigation Sections */}
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
-        <nav className="space-y-1.5">
+        <nav className="space-y-2">
           {/* 1. Home Section with Home Icon */}
           <a
             href={`${basePath}/`.replace(/\/+/g, '/')}
@@ -132,37 +208,36 @@ export const Sidebar: React.FC<SidebarProps> = ({
               isNavActive('/') &&
               !isNavActive('/adb') &&
               !isNavActive('/fastboot') &&
-              !isNavActive('/learn') &&
               !isNavActive('/about')
-                ? 'bg-neutral-100 dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-semibold shadow-sm'
-                : 'text-neutral-600 dark:text-cyber-muted hover:bg-neutral-50 dark:hover:bg-cyber-surfaceHover hover:text-neutral-950 dark:hover:text-cyber-text'
+                ? 'bg-neutral-100 dark:bg-[#18181b] text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-bold shadow-sm'
+                : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-950 dark:hover:text-neutral-200'
             }`}
           >
             <Home className="w-4 h-4 text-cyber-lime shrink-0" />
-            <span>Home</span>
+            <span>Home Cheatsheet</span>
           </a>
 
-          {/* 2. ADB Section with Terminal Icon */}
-          <div className="rounded-xl border border-neutral-200/70 dark:border-cyber-border/60 p-1.5 bg-neutral-50/40 dark:bg-cyber-surface/20">
+          {/* 2. ADB Section */}
+          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-2 bg-neutral-50/60 dark:bg-[#121214]/60 space-y-1.5">
             <div className="flex items-center justify-between">
               <a
                 href={`${basePath}/adb/`.replace(/\/+/g, '/')}
                 onClick={() => isMobile && onClose()}
-                className={`flex-1 flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all ${
-                  isNavActive('/adb')
-                    ? 'bg-neutral-200/80 dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-semibold'
-                    : 'text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
+                className={`flex-1 flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs md:text-sm font-bold font-mono tracking-wide transition-all ${
+                  isNavActive('/adb') && !cleanPath.includes('/learn/adb')
+                    ? 'bg-neutral-200/80 dark:bg-[#1c1c20] text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime'
+                    : 'text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-cyber-lime'
                 }`}
               >
                 <Terminal className="w-4 h-4 text-cyber-lime shrink-0" />
-                <span className="font-mono font-bold tracking-wide">ADB</span>
+                <span>ADB COMMANDS</span>
               </a>
 
               <button
                 type="button"
                 onClick={() => setAdbOpen(!adbOpen)}
-                className="p-1 rounded text-neutral-400 hover:text-neutral-600 dark:text-cyber-dim dark:hover:text-cyber-muted"
-                aria-label="Toggle ADB categories"
+                className="p-1 rounded text-neutral-400 hover:text-neutral-700 dark:text-neutral-500 dark:hover:text-neutral-300"
+                aria-label="Toggle ADB subtopics"
               >
                 <ChevronDown
                   className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -173,42 +248,61 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {adbOpen && (
-              <div className="mt-1 ml-3 pl-2.5 border-l border-neutral-200 dark:border-cyber-border space-y-0.5">
-                {adbCategories.slice(1).map((cat) => (
-                  <a
-                    key={cat}
-                    href={`${basePath}/adb/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
-                    onClick={() => isMobile && onClose()}
-                    className="block px-2 py-1 text-xs text-neutral-500 dark:text-cyber-muted hover:text-neutral-900 dark:hover:text-cyber-lime hover:translate-x-0.5 transition-all truncate"
-                  >
-                    {cat}
-                  </a>
-                ))}
+              <div className="space-y-1 pt-1">
+                {/* What is ADB? Guide Button */}
+                <a
+                  href={`${basePath}/learn/adb/`.replace(/\/+/g, '/')}
+                  onClick={() => isMobile && onClose()}
+                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all border ${
+                    cleanPath.includes('/learn/adb')
+                      ? 'bg-cyber-lime/15 text-neutral-950 dark:text-cyber-lime border-cyber-lime/40 font-bold shadow-sm'
+                      : 'border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#18181b] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-lime hover:border-cyber-lime/30'
+                  }`}
+                  title="What is ADB? Architecture, installation and setup guide"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-cyber-lime shrink-0" />
+                  <span className="font-semibold">What is ADB? (Guide)</span>
+                </a>
+
+                {/* Subtopics with Icons */}
+                <div className="ml-1 pl-2 border-l border-neutral-200 dark:border-neutral-800 space-y-0.5 pt-1">
+                  {adbCategories.slice(1).map((cat) => (
+                    <a
+                      key={cat}
+                      href={`${basePath}/adb/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
+                      onClick={() => isMobile && onClose()}
+                      className="flex items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-cyber-lime hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50 rounded-md transition-all group truncate"
+                    >
+                      {getAdbCategoryIcon(cat)}
+                      <span className="truncate">{cat}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
           </div>
 
-          {/* 3. Fastboot Section with Zap Icon */}
-          <div className="rounded-xl border border-neutral-200/70 dark:border-cyber-border/60 p-1.5 bg-neutral-50/40 dark:bg-cyber-surface/20">
+          {/* 3. Fastboot Section */}
+          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-2 bg-neutral-50/60 dark:bg-[#121214]/60 space-y-1.5">
             <div className="flex items-center justify-between">
               <a
                 href={`${basePath}/fastboot/`.replace(/\/+/g, '/')}
                 onClick={() => isMobile && onClose()}
-                className={`flex-1 flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all ${
-                  isNavActive('/fastboot')
-                    ? 'bg-neutral-200/80 dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-semibold'
-                    : 'text-neutral-700 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-text'
+                className={`flex-1 flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs md:text-sm font-bold font-mono tracking-wide transition-all ${
+                  isNavActive('/fastboot') && !cleanPath.includes('/learn/fastboot')
+                    ? 'bg-neutral-200/80 dark:bg-[#1c1c20] text-neutral-950 dark:text-amber-400 border-l-2 border-amber-500'
+                    : 'text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-amber-400'
                 }`}
               >
                 <Zap className="w-4 h-4 text-amber-500 shrink-0" />
-                <span className="font-mono font-bold tracking-wide">FASTBOOT</span>
+                <span>FASTBOOT COMMANDS</span>
               </a>
 
               <button
                 type="button"
                 onClick={() => setFastbootOpen(!fastbootOpen)}
-                className="p-1 rounded text-neutral-400 hover:text-neutral-600 dark:text-cyber-dim dark:hover:text-cyber-muted"
-                aria-label="Toggle Fastboot categories"
+                className="p-1 rounded text-neutral-400 hover:text-neutral-700 dark:text-neutral-500 dark:hover:text-neutral-300"
+                aria-label="Toggle Fastboot subtopics"
               >
                 <ChevronDown
                   className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -219,60 +313,65 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {fastbootOpen && (
-              <div className="mt-1 ml-3 pl-2.5 border-l border-neutral-200 dark:border-cyber-border space-y-0.5">
-                {fastbootCategories.slice(1).map((cat) => (
-                  <a
-                    key={cat}
-                    href={`${basePath}/fastboot/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
-                    onClick={() => isMobile && onClose()}
-                    className="block px-2 py-1 text-xs text-neutral-500 dark:text-cyber-muted hover:text-neutral-900 dark:hover:text-cyber-lime hover:translate-x-0.5 transition-all truncate"
-                  >
-                    {cat}
-                  </a>
-                ))}
+              <div className="space-y-1 pt-1">
+                {/* What is Fastboot? Guide Button */}
+                <a
+                  href={`${basePath}/learn/fastboot/`.replace(/\/+/g, '/')}
+                  onClick={() => isMobile && onClose()}
+                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all border ${
+                    cleanPath.includes('/learn/fastboot')
+                      ? 'bg-amber-500/15 text-neutral-950 dark:text-amber-400 border-amber-500/40 font-bold shadow-sm'
+                      : 'border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#18181b] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-amber-400 hover:border-amber-500/30'
+                  }`}
+                  title="What is Fastboot? Protocol, partition structure, and flashing guide"
+                >
+                  <Zap className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  <span className="font-semibold">What is Fastboot? (Guide)</span>
+                </a>
+
+                {/* Subtopics with Icons */}
+                <div className="ml-1 pl-2 border-l border-neutral-200 dark:border-neutral-800 space-y-0.5 pt-1">
+                  {fastbootCategories.slice(1).map((cat) => (
+                    <a
+                      key={cat}
+                      href={`${basePath}/fastboot/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
+                      onClick={() => isMobile && onClose()}
+                      className="flex items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-amber-400 hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50 rounded-md transition-all group truncate"
+                    >
+                      {getFastbootCategoryIcon(cat)}
+                      <span className="truncate">{cat}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
           </div>
 
-          {/* 4. Learn Section with BookOpen Icon */}
-          <a
-            href={`${basePath}/learn/`.replace(/\/+/g, '/')}
-            onClick={() => isMobile && onClose()}
-            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
-              isNavActive('/learn')
-                ? 'bg-neutral-100 dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-semibold shadow-sm'
-                : 'text-neutral-600 dark:text-cyber-muted hover:bg-neutral-50 dark:hover:bg-cyber-surfaceHover hover:text-neutral-950 dark:hover:text-cyber-text'
-            }`}
-          >
-            <BookOpen className="w-4 h-4 text-cyber-lime shrink-0" />
-            <span>Learn</span>
-          </a>
-
-          {/* 5. About Section with User Icon */}
+          {/* 4. About Section with User Icon */}
           <a
             href={`${basePath}/about/`.replace(/\/+/g, '/')}
             onClick={() => isMobile && onClose()}
             className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
               isNavActive('/about')
-                ? 'bg-neutral-100 dark:bg-cyber-surface text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-semibold shadow-sm'
-                : 'text-neutral-600 dark:text-cyber-muted hover:bg-neutral-50 dark:hover:bg-cyber-surfaceHover hover:text-neutral-950 dark:hover:text-cyber-text'
+                ? 'bg-neutral-100 dark:bg-[#18181b] text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-bold shadow-sm'
+                : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-950 dark:hover:text-neutral-200'
             }`}
           >
-            <User className="w-4 h-4 text-neutral-500 dark:text-cyber-muted shrink-0" />
-            <span>About</span>
+            <User className="w-4 h-4 text-neutral-500 dark:text-neutral-400 shrink-0" />
+            <span>About Creator &amp; Project</span>
           </a>
         </nav>
       </div>
 
-      {/* Sidebar Footer Link with Sponsor Text */}
-      <div className="p-3 border-t border-neutral-200 dark:border-cyber-border text-xs text-neutral-500 dark:text-cyber-dim bg-neutral-50/60 dark:bg-cyber-surface/40 flex items-center justify-between shrink-0">
+      {/* Sidebar Footer Link with Sponsor Text & 3D styling */}
+      <div className="p-3 border-t border-neutral-200 dark:border-neutral-800 text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50/70 dark:bg-[#121214]/60 flex items-center justify-between shrink-0">
         <a
           href="https://buymeacoffee.com/mkr_infinity"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-neutral-700 hover:text-neutral-950 dark:text-cyber-muted dark:hover:text-cyber-lime font-mono text-xs font-semibold transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-[#FFDD00] text-black border-2 border-neutral-950 shadow-[0_2px_0_#000] hover:bg-[#FACC15] active:translate-y-0.5 active:shadow-none transition-all select-none"
         >
-          <CoffeeIcon className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+          <CoffeeIcon className="w-3.5 h-3.5 text-black shrink-0" />
           <span>Sponsor</span>
         </a>
 
@@ -280,7 +379,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           href="https://github.com/mkr-infinity/android-command-cheatsheet"
           target="_blank"
           rel="noreferrer"
-          className="text-neutral-500 dark:text-cyber-muted hover:text-neutral-950 dark:hover:text-cyber-lime transition-colors"
+          className="clay-button p-2 text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-lime"
           title="GitHub Repository"
         >
           <GithubIcon className="w-4 h-4" />
@@ -291,11 +390,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* ======================================================== */}
-      {/* 1. MOBILE DRAWER UI (< md)                                */}
-      {/* ======================================================== */}
+      {/* 1. Mobile Drawer UI (< md) */}
       <div className="md:hidden">
-        {/* Backdrop overlay */}
         <div
           className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-opacity duration-200 ${
             isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -304,9 +400,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           aria-hidden="true"
         />
 
-        {/* Mobile Slide-in Drawer */}
         <aside
-          className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85vw] flex flex-col border-r border-neutral-200 dark:border-cyber-border shadow-2xl transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85vw] flex flex-col border-r border-neutral-200 dark:border-neutral-800 shadow-2xl transition-transform duration-300 ease-in-out ${
             isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -314,14 +409,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </aside>
       </div>
 
-      {/* ======================================================== */}
-      {/* 2. DESKTOP IN-FLOW RESIZABLE SIDEBAR (>= md)              */}
-      {/* ======================================================== */}
+      {/* 2. Desktop In-Flow Resizable Pane (>= md) */}
       <aside
         style={{
           width: isOpen ? `${width}px` : '0px',
         }}
-        className={`hidden md:flex flex-col border-r border-neutral-200 dark:border-cyber-border shrink-0 sticky top-16 h-[calc(100vh-4rem)] select-none transition-[width] duration-200 ease-in-out ${
+        className={`hidden md:flex flex-col border-r border-neutral-200 dark:border-neutral-800 shrink-0 sticky top-16 h-[calc(100vh-4rem)] select-none transition-[width] duration-200 ease-in-out ${
           isOpen ? 'opacity-100' : 'opacity-0 overflow-hidden pointer-events-none border-r-0'
         }`}
       >
@@ -335,12 +428,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div
           ref={resizeHandleRef}
           onMouseDown={() => setIsResizing(true)}
-          className={`hidden md:flex items-center justify-center w-1.5 hover:w-2 -ml-1 z-20 cursor-col-resize select-none group transition-all shrink-0 ${
-            isResizing ? 'w-2 bg-cyber-lime' : 'bg-transparent hover:bg-cyber-lime/50'
+          className={`hidden md:flex items-center justify-center w-2 -ml-1 z-20 cursor-col-resize select-none group transition-all shrink-0 ${
+            isResizing ? 'bg-cyber-lime' : 'bg-transparent hover:bg-cyber-lime/40'
           }`}
           title="Drag to resize sidebar width"
         >
-          <div className="w-0.5 h-8 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-neutral-900 dark:group-hover:bg-cyber-lime transition-colors" />
+          <div className="w-0.5 h-10 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-neutral-900 dark:group-hover:bg-cyber-lime transition-colors" />
         </div>
       )}
     </>
