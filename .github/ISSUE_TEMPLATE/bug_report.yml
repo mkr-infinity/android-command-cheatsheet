@@ -1,0 +1,30 @@
+name: Bug Report
+description: Report a broken command, incorrect syntax, or website issue
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting an issue with Android Command Cheatsheet!
+  - type: input
+    id: command
+    attributes:
+      label: Affected Command / URL
+      description: Which command or page has the issue?
+      placeholder: e.g. adb install -r, /adb/install-apk/
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: Describe the Bug
+      description: What is incorrect or broken?
+      placeholder: Clear description of what happened vs what was expected.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Environment / OS
+      description: Operating System (Linux, macOS, Windows) and Android version if applicable.
+      placeholder: Ubuntu 24.04 / Android 14
