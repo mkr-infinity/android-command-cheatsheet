@@ -3,7 +3,6 @@ import { ArrowRight, Bookmark, Terminal, Zap } from 'lucide-react';
 import type { CommandItem } from '../data/types';
 import { CopyButton } from './CopyButton';
 import { RiskBadge } from './RiskBadge';
-import { TelegramIcon } from './icons/BrandIcons';
 import { isFavorite, toggleFavorite } from '../utils/storage';
 
 interface CommandCardProps {
@@ -34,8 +33,19 @@ export const CommandCard: React.FC<CommandCardProps> = ({ command, basePath = ''
 
   const detailUrl = `${basePath}/${command.tool}/${command.id}/`.replace(/\/+/g, '/');
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('a')) {
+      return;
+    }
+    window.location.href = detailUrl;
+  };
+
   return (
-    <div className="clay-card group relative flex flex-col justify-between p-4 md:p-5 hover:translate-y-[-2px] transition-all duration-200">
+    <div
+      onClick={handleCardClick}
+      className="clay-card group relative flex flex-col justify-between p-4 md:p-5 hover:translate-y-[-2px] hover:border-neutral-400 dark:hover:border-neutral-700 transition-all duration-200 cursor-pointer"
+    >
       <div>
         {/* Top Header: Category & Risk & Favorite */}
         <div className="flex items-center justify-between gap-2 mb-3">
@@ -69,7 +79,7 @@ export const CommandCard: React.FC<CommandCardProps> = ({ command, basePath = ''
         </div>
 
         {/* Command Syntax in Monospace Clay Terminal Block */}
-        <div className="relative my-2.5 px-3 py-2.5 rounded-xl bg-[#0f1115] border border-neutral-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_2px_6px_rgba(0,0,0,0.06)] overflow-x-auto flex items-center gap-2">
+        <div className="relative my-2.5 px-3 py-2.5 rounded-xl bg-[#0f1115] border border-neutral-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_2px_6px_rgba(0,0,0,0.06)] overflow-x-auto flex items-center gap-2 group-hover:border-neutral-700 transition-colors">
           <span className="text-[11px] font-mono text-cyber-lime select-none font-bold shrink-0">$</span>
           <code className="text-xs sm:text-[13px] font-mono text-neutral-100 dark:text-cyber-lime font-bold tracking-tight whitespace-nowrap">
             {command.command}
@@ -97,22 +107,6 @@ export const CommandCard: React.FC<CommandCardProps> = ({ command, basePath = ''
         >
           <span>Details</span>
           <ArrowRight className="w-3.5 h-3.5" />
-        </a>
-      </div>
-
-      {/* Trademark / Direct Support */}
-      <div className="mt-2.5 pt-2 border-t border-neutral-100 dark:border-neutral-800/60 flex items-center justify-between text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
-        <span className="truncate">Having issue?</span>
-        <a
-          href="https://t.me/mkr_infinity"
-          target="_blank"
-          rel="noreferrer"
-          className="text-neutral-800 dark:text-cyber-lime hover:underline font-bold inline-flex items-center gap-1.5 shrink-0 group/tg"
-          title="Contact @mkr_infinity on Telegram"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <TelegramIcon className="w-3 h-3 text-[#229ED9] group-hover/tg:scale-110 transition-transform" />
-          <span>contact @mkr_infinity</span>
         </a>
       </div>
     </div>
