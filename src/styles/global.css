@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --bg-main: #F4F5F7;
+    --bg-main: #F6F7F9;
     --bg-surface: #FFFFFF;
-    --border-color: #CBD1DC;
-    --text-primary: #0A0A0A;
-    --text-secondary: #404040;
+    --border-color: #D6DAE2;
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
     
     /* Light Theme: Deep technical emerald for ultra-sharp readability (5.5:1 contrast against white) */
     --accent-lime-rgb: 4 120 87;
@@ -64,12 +64,11 @@
 .clay-card {
   @apply rounded-2xl transition-all duration-200;
   background: #FFFFFF;
-  border: 1.5px solid #CBD1DC;
+  border: 1px solid #D6DAE2;
   box-shadow: 
-    inset 1px 1px 2px rgba(255, 255, 255, 1), 
-    inset -1px -2px 3px rgba(0, 0, 0, 0.05), 
-    0 10px 24px -4px rgba(0, 0, 0, 0.09),
-    0 2px 6px -1px rgba(0, 0, 0, 0.04);
+    0 1px 3px 0 rgba(0, 0, 0, 0.04), 
+    0 10px 28px -4px rgba(0, 0, 0, 0.06), 
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 html.dark .clay-card {
@@ -84,20 +83,20 @@ html.dark .clay-card {
 .clay-button {
   @apply inline-flex items-center justify-center font-mono rounded-xl transition-all duration-150 cursor-pointer select-none;
   background: #FFFFFF;
-  border: 1.5px solid #C4C9D4;
+  border: 1px solid #CBD1DC;
   box-shadow: 
-    inset 1px 1px 2px rgba(255, 255, 255, 1), 
-    inset -1px -1px 2px rgba(0, 0, 0, 0.06), 
-    0 3px 8px -2px rgba(0, 0, 0, 0.1);
+    0 2px 5px -1px rgba(0, 0, 0, 0.05), 
+    0 1px 2px -1px rgba(0, 0, 0, 0.03), 
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .clay-button:hover {
-  background: #F4F5F7;
-  border-color: #8C95A6;
+  background: #F8F9FA;
+  border-color: #9CA3AF;
   box-shadow: 
-    inset 1px 1px 2px rgba(255, 255, 255, 1), 
-    inset -1px -1px 2px rgba(0, 0, 0, 0.08), 
-    0 4px 12px -2px rgba(0, 0, 0, 0.14);
+    0 4px 12px -2px rgba(0, 0, 0, 0.08), 
+    0 2px 4px -1px rgba(0, 0, 0, 0.04), 
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .clay-button:active {

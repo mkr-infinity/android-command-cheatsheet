@@ -31,10 +31,10 @@ export const AboutProfile: React.FC = () => {
     login: 'mkr-infinity',
     name: 'Mohammad Kaif Raja',
     avatar_url: 'https://github.com/mkr-infinity.png',
-    bio: 'Software engineer and systems developer creating developer tools, custom Android firmware recovery guides, and open source technical documentation.',
-    public_repos: 18,
-    followers: 24,
-    following: 12,
+    bio: 'Passionate about systems, not code. From flashing OS to customizing Linux, I’ve tested countless distros. Tech is my playground, curiosity my guide.',
+    public_repos: 24,
+    followers: 23,
+    following: 0,
     html_url: 'https://github.com/mkr-infinity',
     blog: 'https://mkr-infinity.github.io',
   });
@@ -50,12 +50,10 @@ export const AboutProfile: React.FC = () => {
         if (data && data.avatar_url) {
           setProfile((prev) => ({
             ...prev,
-            name: data.name || prev.name,
+            // Always use full name Mohammad Kaif Raja instead of just "Kaif"
+            name: 'Mohammad Kaif Raja',
             avatar_url: data.avatar_url || prev.avatar_url,
-            bio: data.bio || prev.bio,
-            public_repos: data.public_repos ?? prev.public_repos,
-            followers: data.followers ?? prev.followers,
-            following: data.following ?? prev.following,
+            bio: data.bio ? data.bio.replace(/\r\n/g, ' ').replace(/\s+/g, ' ') : prev.bio,
             html_url: data.html_url || prev.html_url,
             blog: data.blog || prev.blog,
           }));
