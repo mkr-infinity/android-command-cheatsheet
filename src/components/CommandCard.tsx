@@ -67,19 +67,20 @@ export const CommandCard: React.FC<CommandCardProps> = ({ command, basePath = ''
           </button>
         </div>
 
-        {/* Command Syntax in Monospace Clay Block */}
-        <div className="relative my-2.5 p-3 rounded-xl bg-neutral-100 dark:bg-[#0c0c0e] border border-neutral-200 dark:border-neutral-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] overflow-x-auto">
-          <code className="text-xs sm:text-[13px] font-mono text-neutral-950 dark:text-cyber-lime font-bold tracking-tight whitespace-nowrap block">
+        {/* Command Syntax in Monospace Clay Terminal Block */}
+        <div className="relative my-2.5 px-3 py-2.5 rounded-xl bg-[#0f1115] border border-neutral-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5),0_2px_6px_rgba(0,0,0,0.06)] overflow-x-auto flex items-center gap-2">
+          <span className="text-[11px] font-mono text-cyber-lime select-none font-bold shrink-0">$</span>
+          <code className="text-xs sm:text-[13px] font-mono text-neutral-100 dark:text-cyber-lime font-bold tracking-tight whitespace-nowrap">
             {command.command}
           </code>
         </div>
 
         {/* Clear Explanation: What it does */}
         <div className="mt-3 space-y-1">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
+          <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
             What it does:
           </div>
-          <p className="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 line-clamp-2 leading-relaxed">
+          <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 line-clamp-2 leading-relaxed font-medium">
             {command.description}
           </p>
         </div>

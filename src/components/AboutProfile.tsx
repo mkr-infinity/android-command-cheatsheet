@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Code2,
-  Globe,
   Sparkles,
   Users,
   GitBranch,

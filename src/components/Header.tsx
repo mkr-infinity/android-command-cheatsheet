@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Live System Indicator on Desktop */}
         <div className="hidden xl:flex items-center gap-1.5 ml-2 px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-neutral-100 dark:bg-[#18181b] border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
           <span className="w-1.5 h-1.5 rounded-full bg-cyber-lime shadow-[0_0_6px_#E2F952] animate-pulse" />
-          <span>v2.0 • 96 CMDS</span>
+          <span>SYSTEM READY • 96 CMDS</span>
         </div>
       </div>
 

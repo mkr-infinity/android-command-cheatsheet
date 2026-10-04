@@ -27,7 +27,6 @@ import {
   Trash2,
   Unlock,
   PlaySquare,
-  Sparkles,
 } from 'lucide-react';
 import { GithubIcon, CoffeeIcon } from './icons/BrandIcons';
 import { adbCategories, fastbootCategories } from '../data';
@@ -198,17 +197,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Navigation Sections */}
-      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
+      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5">
         <nav className="space-y-2">
-          {/* 1. Home Section with Home Icon */}
+          {/* 1. Home Section */}
           <a
             href={`${basePath}/`.replace(/\/+/g, '/')}
             onClick={() => isMobile && onClose()}
             className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
               isNavActive('/') &&
-              !isNavActive('/adb') &&
-              !isNavActive('/fastboot') &&
-              !isNavActive('/about')
+              !cleanPath.startsWith('/learn') &&
+              !cleanPath.startsWith('/adb') &&
+              !cleanPath.startsWith('/fastboot') &&
+              !cleanPath.startsWith('/about')
                 ? 'bg-neutral-100 dark:bg-[#18181b] text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-bold shadow-sm'
                 : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-950 dark:hover:text-neutral-200'
             }`}
@@ -217,14 +217,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span>Home Cheatsheet</span>
           </a>
 
-          {/* 2. ADB Section */}
+          {/* 2. DEDICATED SECTION: What is ADB? */}
+          <a
+            href={`${basePath}/learn/adb/`.replace(/\/+/g, '/')}
+            onClick={() => isMobile && onClose()}
+            className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs md:text-sm transition-all border ${
+              cleanPath.startsWith('/learn/adb')
+                ? 'bg-cyber-lime/15 text-neutral-950 dark:text-cyber-lime border-cyber-lime/40 font-bold shadow-sm border-l-2'
+                : 'border-neutral-200/80 dark:border-neutral-800/80 bg-white dark:bg-[#121214] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-lime hover:border-cyber-lime/30'
+            }`}
+            title="What is ADB? Architecture, installation and setup guide"
+          >
+            <div className="flex items-center gap-2.5">
+              <BookOpen className="w-4 h-4 text-cyber-lime shrink-0" />
+              <span className="font-semibold">What is ADB?</span>
+            </div>
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-cyber-lime/10 text-neutral-900 dark:text-cyber-lime border border-cyber-lime/20">
+              GUIDE
+            </span>
+          </a>
+
+          {/* 3. DEDICATED SECTION: ADB Commands (Expandable with category icons) */}
           <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-2 bg-neutral-50/60 dark:bg-[#121214]/60 space-y-1.5">
             <div className="flex items-center justify-between">
               <a
                 href={`${basePath}/adb/`.replace(/\/+/g, '/')}
                 onClick={() => isMobile && onClose()}
                 className={`flex-1 flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs md:text-sm font-bold font-mono tracking-wide transition-all ${
-                  isNavActive('/adb') && !cleanPath.includes('/learn/adb')
+                  cleanPath.startsWith('/adb')
                     ? 'bg-neutral-200/80 dark:bg-[#1c1c20] text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime'
                     : 'text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-cyber-lime'
                 }`}
@@ -248,53 +268,55 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {adbOpen && (
-              <div className="space-y-1 pt-1">
-                {/* What is ADB? Guide Button */}
-                <a
-                  href={`${basePath}/learn/adb/`.replace(/\/+/g, '/')}
-                  onClick={() => isMobile && onClose()}
-                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all border ${
-                    cleanPath.includes('/learn/adb')
-                      ? 'bg-cyber-lime/15 text-neutral-950 dark:text-cyber-lime border-cyber-lime/40 font-bold shadow-sm'
-                      : 'border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#18181b] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-cyber-lime hover:border-cyber-lime/30'
-                  }`}
-                  title="What is ADB? Architecture, installation and setup guide"
-                >
-                  <BookOpen className="w-3.5 h-3.5 text-cyber-lime shrink-0" />
-                  <span className="font-semibold">What is ADB? (Guide)</span>
-                </a>
-
-                {/* Subtopics with Icons */}
-                <div className="ml-1 pl-2 border-l border-neutral-200 dark:border-neutral-800 space-y-0.5 pt-1">
-                  {adbCategories.slice(1).map((cat) => (
-                    <a
-                      key={cat}
-                      href={`${basePath}/adb/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
-                      onClick={() => isMobile && onClose()}
-                      className="flex items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-cyber-lime hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50 rounded-md transition-all group truncate"
-                    >
-                      {getAdbCategoryIcon(cat)}
-                      <span className="truncate">{cat}</span>
-                    </a>
-                  ))}
-                </div>
+              <div className="ml-1 pl-2 border-l border-neutral-200 dark:border-neutral-800 space-y-0.5 pt-1">
+                {adbCategories.slice(1).map((cat) => (
+                  <a
+                    key={cat}
+                    href={`${basePath}/adb/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
+                    onClick={() => isMobile && onClose()}
+                    className="flex items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-cyber-lime hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50 rounded-md transition-all group truncate"
+                  >
+                    {getAdbCategoryIcon(cat)}
+                    <span className="truncate">{cat}</span>
+                  </a>
+                ))}
               </div>
             )}
           </div>
 
-          {/* 3. Fastboot Section */}
+          {/* 4. DEDICATED SECTION: What is Fastboot? */}
+          <a
+            href={`${basePath}/learn/fastboot/`.replace(/\/+/g, '/')}
+            onClick={() => isMobile && onClose()}
+            className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs md:text-sm transition-all border ${
+              cleanPath.startsWith('/learn/fastboot')
+                ? 'bg-amber-500/15 text-neutral-950 dark:text-amber-400 border-amber-500/40 font-bold shadow-sm border-l-2'
+                : 'border-neutral-200/80 dark:border-neutral-800/80 bg-white dark:bg-[#121214] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-amber-400 hover:border-amber-500/30'
+            }`}
+            title="What is Fastboot? Protocol, partition structure, and flashing guide"
+          >
+            <div className="flex items-center gap-2.5">
+              <Zap className="w-4 h-4 text-amber-500 shrink-0" />
+              <span className="font-semibold">What is Fastboot?</span>
+            </div>
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+              GUIDE
+            </span>
+          </a>
+
+          {/* 5. DEDICATED SECTION: Fastboot Commands (Expandable with category icons) */}
           <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-2 bg-neutral-50/60 dark:bg-[#121214]/60 space-y-1.5">
             <div className="flex items-center justify-between">
               <a
                 href={`${basePath}/fastboot/`.replace(/\/+/g, '/')}
                 onClick={() => isMobile && onClose()}
                 className={`flex-1 flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs md:text-sm font-bold font-mono tracking-wide transition-all ${
-                  isNavActive('/fastboot') && !cleanPath.includes('/learn/fastboot')
+                  cleanPath.startsWith('/fastboot')
                     ? 'bg-neutral-200/80 dark:bg-[#1c1c20] text-neutral-950 dark:text-amber-400 border-l-2 border-amber-500'
                     : 'text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-amber-400'
                 }`}
               >
-                <Zap className="w-4 h-4 text-amber-500 shrink-0" />
+                <Cpu className="w-4 h-4 text-amber-500 shrink-0" />
                 <span>FASTBOOT COMMANDS</span>
               </a>
 
@@ -313,46 +335,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
 
             {fastbootOpen && (
-              <div className="space-y-1 pt-1">
-                {/* What is Fastboot? Guide Button */}
-                <a
-                  href={`${basePath}/learn/fastboot/`.replace(/\/+/g, '/')}
-                  onClick={() => isMobile && onClose()}
-                  className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all border ${
-                    cleanPath.includes('/learn/fastboot')
-                      ? 'bg-amber-500/15 text-neutral-950 dark:text-amber-400 border-amber-500/40 font-bold shadow-sm'
-                      : 'border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#18181b] text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-amber-400 hover:border-amber-500/30'
-                  }`}
-                  title="What is Fastboot? Protocol, partition structure, and flashing guide"
-                >
-                  <Zap className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                  <span className="font-semibold">What is Fastboot? (Guide)</span>
-                </a>
-
-                {/* Subtopics with Icons */}
-                <div className="ml-1 pl-2 border-l border-neutral-200 dark:border-neutral-800 space-y-0.5 pt-1">
-                  {fastbootCategories.slice(1).map((cat) => (
-                    <a
-                      key={cat}
-                      href={`${basePath}/fastboot/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
-                      onClick={() => isMobile && onClose()}
-                      className="flex items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-amber-400 hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50 rounded-md transition-all group truncate"
-                    >
-                      {getFastbootCategoryIcon(cat)}
-                      <span className="truncate">{cat}</span>
-                    </a>
-                  ))}
-                </div>
+              <div className="ml-1 pl-2 border-l border-neutral-200 dark:border-neutral-800 space-y-0.5 pt-1">
+                {fastbootCategories.slice(1).map((cat) => (
+                  <a
+                    key={cat}
+                    href={`${basePath}/fastboot/?category=${encodeURIComponent(cat)}`.replace(/\/+/g, '/')}
+                    onClick={() => isMobile && onClose()}
+                    className="flex items-center gap-2 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-amber-400 hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50 rounded-md transition-all group truncate"
+                  >
+                    {getFastbootCategoryIcon(cat)}
+                    <span className="truncate">{cat}</span>
+                  </a>
+                ))}
               </div>
             )}
           </div>
 
-          {/* 4. About Section with User Icon */}
+          {/* 6. About Section with User Icon */}
           <a
             href={`${basePath}/about/`.replace(/\/+/g, '/')}
             onClick={() => isMobile && onClose()}
             className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
-              isNavActive('/about')
+              cleanPath.startsWith('/about')
                 ? 'bg-neutral-100 dark:bg-[#18181b] text-neutral-950 dark:text-cyber-lime border-l-2 border-cyber-lime font-bold shadow-sm'
                 : 'text-neutral-700 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-950 dark:hover:text-neutral-200'
             }`}

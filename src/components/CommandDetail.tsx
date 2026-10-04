@@ -166,12 +166,12 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
 
       {/* What it does (Clear, Easy to Understand) */}
       <section className="space-y-3">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-bold">
           <Info className="w-4 h-4 text-cyber-lime" />
           <span>What It Does</span>
         </div>
-        <div className="clay-card p-5 sm:p-6 text-sm sm:text-base text-neutral-800 dark:text-neutral-200 leading-relaxed font-sans">
-          <p className="font-medium text-neutral-900 dark:text-cyber-text">
+        <div className="clay-card p-5 sm:p-6 text-sm sm:text-base leading-relaxed font-sans border-l-4 border-l-cyber-lime">
+          <p className="font-medium text-neutral-900 dark:text-cyber-text leading-relaxed">
             {command.description}
           </p>
         </div>
@@ -180,23 +180,32 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
       {/* Syntax Block */}
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-bold">
             <Terminal className="w-4 h-4 text-cyber-lime" />
             <span>Command Syntax</span>
           </div>
           <CopyButton text={command.syntax} label="Copy Syntax" />
         </div>
-        <div className="p-4 sm:p-5 rounded-2xl bg-neutral-900 dark:bg-[#09090b] border border-neutral-800 dark:border-neutral-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] overflow-x-auto">
-          <code className="text-sm md:text-base font-mono text-cyber-lime font-bold whitespace-nowrap block">
-            {command.syntax}
-          </code>
+        <div className="relative p-4 sm:p-5 rounded-2xl bg-[#0b0c10] border border-neutral-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),0_4px_12px_rgba(0,0,0,0.15)] overflow-x-auto">
+          <div className="flex items-center gap-1.5 mb-3 pb-2.5 border-b border-neutral-800/80 select-none">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+            <span className="ml-2 text-[10px] font-mono uppercase text-neutral-400 tracking-widest font-semibold">Terminal</span>
+          </div>
+          <div className="flex items-start gap-2.5 font-mono text-sm md:text-base">
+            <span className="text-cyber-lime select-none font-bold shrink-0">$</span>
+            <code className="text-cyber-lime font-bold whitespace-nowrap block">
+              {command.syntax}
+            </code>
+          </div>
         </div>
       </section>
 
       {/* Examples Block */}
       {command.examples && command.examples.length > 0 && (
         <section className="space-y-3">
-          <div className="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold">
+          <div className="text-xs font-mono uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-bold">
             Usage Examples
           </div>
           <div className="space-y-2.5">
@@ -205,9 +214,12 @@ export const CommandDetail: React.FC<CommandDetailProps> = ({ command, basePath 
                 key={idx}
                 className="clay-card flex items-center justify-between gap-3 p-3.5 sm:p-4 overflow-x-auto"
               >
-                <code className="text-xs sm:text-sm font-mono text-neutral-950 dark:text-cyber-text font-semibold whitespace-nowrap">
-                  {ex}
-                </code>
+                <div className="flex items-center gap-2 overflow-x-auto">
+                  <span className="text-xs font-mono text-cyber-lime select-none font-bold shrink-0">$</span>
+                  <code className="text-xs sm:text-sm font-mono text-neutral-900 dark:text-cyber-text font-bold whitespace-nowrap">
+                    {ex}
+                  </code>
+                </div>
                 <CopyButton text={ex} showText={false} />
               </div>
             ))}
