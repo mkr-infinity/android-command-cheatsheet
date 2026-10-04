@@ -72,17 +72,30 @@ export const AliveTitle: React.FC = () => {
   const currentFont = FONT_STYLES[fontIndex];
 
   return (
-    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-bold tracking-tight text-neutral-950 dark:text-cyber-text flex flex-col sm:flex-row sm:items-baseline sm:flex-nowrap gap-x-3 gap-y-1 whitespace-nowrap">
-      <span className="shrink-0 whitespace-nowrap select-none">Android Command</span>
-      <span className="relative inline-flex items-baseline whitespace-nowrap overflow-visible">
-        <span
-          className={`transition-all duration-200 underline decoration-cyber-lime/40 underline-offset-8 inline-flex items-baseline whitespace-nowrap min-w-[140px] sm:min-w-[200px] md:min-w-[240px] ${currentFont.className}`}
-          style={currentFont.style}
-        >
-          <span>{displayText}</span>
-          <span className="inline-block w-1.5 h-5 sm:h-7 md:h-9 bg-cyber-lime ml-1 self-center animate-pulse" />
+    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-black tracking-tight text-neutral-950 dark:text-white flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 flex-wrap">
+      {/* Elevated Android Command Typography */}
+      <span className="shrink-0 select-none tracking-tight">
+        <span className="text-neutral-950 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:via-neutral-100 dark:to-neutral-300 drop-shadow-sm font-black">
+          Android Command
         </span>
       </span>
+
+      {/* Cybercore Display Box Container: Locks the animated word inside and never overflows */}
+      <div className="inline-flex items-center shrink-0">
+        <div className="relative flex items-center justify-center px-4 sm:px-6 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl border-2 border-cyber-lime/40 dark:border-cyber-lime/60 bg-white/95 dark:bg-[#0c0d11]/95 shadow-[0_4px_20px_rgba(0,0,0,0.06),inset_0_1px_2px_rgba(255,255,255,0.9)] dark:shadow-[0_0_24px_rgba(204,255,0,0.14),inset_0_2px_4px_rgba(0,0,0,0.85)] min-w-[200px] sm:min-w-[270px] md:min-w-[320px] max-w-full overflow-hidden backdrop-blur-md transition-all">
+          {/* Subtle ambient display glow */}
+          <div className="absolute inset-0 bg-cyber-lime/5 pointer-events-none rounded-xl sm:rounded-2xl" />
+
+          {/* Contained dynamic text */}
+          <span
+            className={`relative z-10 transition-all duration-200 inline-flex items-center justify-center whitespace-nowrap select-none ${currentFont.className}`}
+            style={currentFont.style}
+          >
+            <span>{displayText}</span>
+            <span className="inline-block w-1.5 h-5 sm:h-7 md:h-8 bg-cyber-lime ml-1.5 rounded-sm animate-pulse shadow-[0_0_10px_rgb(var(--accent-lime-rgb))]" />
+          </span>
+        </div>
+      </div>
     </h1>
   );
 };
